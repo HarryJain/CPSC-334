@@ -35,7 +35,7 @@ void drawClock(int num) {
   ellipse(cxa[num], cy, clockDiameter, clockDiameter);
   
   // Angles for sin() and cos() start at 3 o'clock;
-  // subtract HALF_PI to make them start at the top
+  //   subtract PI to make them start at 9 o'clock
   float s = map(second(), 0, 60, 0, TWO_PI) - PI;
   float m = map(minute() + norm(second(), 0, 60), 0, 60, 0, TWO_PI) - PI; 
   float h = map(hour() + norm(minute(), 0, 60), 0, 24, 0, TWO_PI * 2) - PI;
