@@ -24,11 +24,11 @@ Taking this imagery as inspiration, *Again and Again and Again* (a title inspire
 This project uses the graphics software Processing, with the code written in the default Java installation. Everything used is from the base installation, except for the Sound libarary, which plays the optional soundtrack alonside the visual art.
 
 ### File Structure
-- *README.md* describes all aspects, creative and technical, of the art installation
-- *againAndAgainAndAgain* contains the main Processing program as well as the *.wav* music file
-  - *againAndAgainAndAgain.pde* is the executable code file for running the installation (open in Processing to run)
-  - *tva.wav* is the audio file containing a copy of Natalie Holt's "TVA" from the official *Loki* soundtrack (taken from this [YouTube video](https://youtu.be/SRWSfXdlNPc))
-- *oldStuff* contains previous and partial attempts at this installation (defunct)
+- *README.md* describes all aspects, creative and technical, of the art installation.
+- *againAndAgainAndAgain* contains the main Processing program as well as the *.wav* music file.
+  - *againAndAgainAndAgain.pde* is the executable code file for running the installation (open in Processing to run).
+  - *tva.wav* is the audio file containing a copy of Natalie Holt's "TVA" from the official *Loki* soundtrack (taken from this [YouTube video](https://youtu.be/SRWSfXdlNPc)).
+- *oldStuff* contains previous and partial attempts at this installation (defunct).
 
 ## Usage Instructions
 As outlined in the task description, this project is customized to the physical space of the CCAM Leeds Studio Projector array, so running it on other computers requires some modifications. To run it in the studio, utilize the following instructions:
