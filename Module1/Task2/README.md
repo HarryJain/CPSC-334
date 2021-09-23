@@ -5,7 +5,7 @@
 ![Leeds Setup](./images/leads-projectors.jpg)
 
 - Use the physical layout discovered in Task 1 to greate a generative art installation for the CCAM Leeds Studio Projector array.
-- Embrace the challenges of the physical space and setup to "specialize" the installation to this particular multi-projector canvas.
+- Embrace the challenges of the physical space and setup to "specialize" the installation for this particular multi-projector canvas.
 
 ## *Again and Again and Again*: An Homage to Marvel Studios's *Loki*
 Even as a die-hard fan of Marvel, I was especially surprised and impressed at the visual storytelling in their series *Loki*, in which the titular character finds himself thrown into the world of multiverses, timelines, and more. In particular, I was struck by the images of the "Sacred Timeline" branching out of control in the final episode, as shown in the image below.
