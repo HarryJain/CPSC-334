@@ -4,7 +4,7 @@
 - Use the physical layout discovered in Task 1 to greate a generative art installation for the CCAM Leeds Studio Projector array.
 - Embrace the challenges of the physical space and setup to "specialize" the installation to this particular multi-projector canvas.
 
-## 8Again and Again and Again8: An Homage to Marvel Studios's *Loki*
+## *Again and Again and Again*: An Homage to Marvel Studios's *Loki*
 Even as a die-hard fan of Marvel, I was particularly surprised and impressed at the visual storytelling in their series *Loki*, in which the titular character finds himself thrown into the world of multiverses, timelines, and more. In particular, I was struck by the images of the "Sacred Timeline" branching out of control in the final episode, as shown in the image below.
 
 Taking this imagery as inspiration, *Again and Again and Again* (a title inspired by the words of Time Variance Authority agent Mobius), aims to create a generative art installation of branching timelines. To establish this connection to the show, it incorporates important aspects of plot, such as the "Sacred Timeline" running down the center of the displays, "Miss Minutes" serving as the source of the timelines, a red color shift near the borders of the displays, and the Time Variance Authority theme in the background. Additionally, the constant "rebirth" of the installation represents the circular nature of time in *Loki*, while demonstrating the destructive power of the uncontrollable branching in the finale.
@@ -16,7 +16,7 @@ This project uses the graphics software Processing, with the code written in the
 
 ### File Structure
 - *README.md* describes all aspects, creative and technical, of the art installation
-- *againAndAgainAndAgain* contains the main Processing program as well as the WAV music file
+- *againAndAgainAndAgain* contains the main Processing program as well as the *.wav* music file
   - *againAndAgainAndAgain.pde* is the executable code file for running the installation (open in Processing to run)
   - *tva.wav* is the audio file containing a copy of Natalie Holt's "TVA" from the official *Loki* soundtrack (taken from this [YouTube video](https://youtu.be/SRWSfXdlNPc)).
 - *oldStuff* contains previous and partial attempts at this installation (defunct)
