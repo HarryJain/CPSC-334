@@ -1,4 +1,5 @@
 // Import the sound library and declare a SoundFile
+// NOTE: To avoid using sound, remove lines 3 and 4, along with lines 47 and 48
 import processing.sound.*;
 SoundFile file;
 
@@ -9,7 +10,7 @@ float GROWTH = 1;
 int LIMIT = 100000;
 
 // Set the probability for branching (P = 1 / BRANCH for each call of draw())
-// Decrease this value to increase branching speed and increase it to decrease branching
+// NOTE: Decrease this value to increase branching speed and increase it to decrease branching
 int BRANCH = 800;
 
 // Set the thickness of the sacred timeline
@@ -19,6 +20,7 @@ int THICKNESS = 8;
 int SHIFT = 1360;
 
 // Variable to adjust for the main screen
+// NOTE: Set this variable to 0 if your window spans only on the displays you desire and not an additional "main display" or alternately change its value to match the width of your "main display" you want to skip.
 int MAINSCREEN = 1024;
 
 // Set the delay in milliseconds after finishing a traversal
@@ -43,6 +45,7 @@ void setup() {
   //size(900, 768);
   
   // Set the TVA theme sound file and play it on loop
+  // NOTE: To avoid using sound, remove lines 47 and 48, along with lines 3 and 4
   file = new SoundFile(this, "tva.wav");
   file.loop();
   
@@ -73,6 +76,7 @@ void draw() {
   // Keep allowing for branching and updating the drawing until the limit is reached
   if (timelines.size() < LIMIT) {
     // If you have reached the second-to-last screen, shift the x's to the last screen
+    // NOTE: Remove lines 76 to 92 if the screens are ordered properly
     if (timelines.get(0).realx < 2 * SHIFT + MAINSCREEN && timelines.get(0).realx == timelines.get(0).x) {
       // Loop through all the timelines and shift each one
       for (int i = 0; i < timelines.size(); i++) {
@@ -102,6 +106,7 @@ void draw() {
   }
   
   // If the sacred timeline has died/reached the edge, reset everything after a set delay (optional)
+  // NOTE: remove
   if (!timelines.get(0).isAlive()) {
     delay(DELAY);
     reset();
@@ -225,7 +230,7 @@ class Timeline {
 
   // Return true/alive if the x and y are within the boundaries
   boolean isAlive() {
-    return this.y >= 0 && this.y <= height && realx >= 1024 && realx <= width;
+    return this.y >= 0 && this.y <= height && realx >= MAINSCREEN && realx <= width;
   }
 }
 
@@ -236,8 +241,7 @@ void drawClock() {
   noStroke();
   ellipse(cx, cy, clockDiameter, clockDiameter);
   
-  // Angles for sin() and cos() start at 3 o'clock;
-  // subtract PI to make them start at 9 o'clock
+  // Angles for sin() and cos() start at 3 o'clock; subtract PI to make them start at 9 o'clock
   float s = map(second(), 0, 60, 0, TWO_PI) - PI;
   float m = map(minute() + norm(second(), 0, 60), 0, 60, 0, TWO_PI) - PI; 
   float h = map(hour() + norm(minute(), 0, 60), 0, 24, 0, TWO_PI * 2) - PI;
@@ -285,3 +289,8 @@ void drawClock() {
 void mouseClicked() {
   reset();
 }
+
+// References
+
+// Growing tree: https://openprocessing.org/sketch/155415/
+// Clock and face: https://processing.org/examples/clock.html, https://happycoding.io/examples/processing/calling-functions/smiley-face
