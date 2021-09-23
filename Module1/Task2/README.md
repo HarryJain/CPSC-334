@@ -26,7 +26,7 @@ This project uses the graphics software Processing, with the code written in the
 ### File Structure
 - *README.md* describes all aspects, creative and technical, of the art installation.
 - *againAndAgainAndAgain* contains the main Processing program as well as the *.wav* music file.
-  - *againAndAgainAndAgain.pde* is the executable code file for running the installation (open in Processing to run).
+  - *againAndAgainAndAgain.pde* is the code file for running the installation (open in Processing to run).
   - *tva.wav* is the audio file containing a copy of Natalie Holt's "TVA" from the official *Loki* soundtrack (taken from this [YouTube video](https://youtu.be/SRWSfXdlNPc)).
 - *oldStuff* contains previous and partial attempts at this installation (defunct).
 
@@ -49,8 +49,8 @@ To run the installation on other systems, consider modifying the following varia
 ## Future Improvements
 While the installation meets many of the initial goals, there are still some improvements that could be made to function better and more accurately represent the original artistic vision, some of which are outlined below.
 - Rather than exclusively vary the amplitude and period of the sine curves, modify their initial angle relative to the "Sacred Timeline" as well. This idea was sidelined due to the mathematical complexity in the given time, but it should be achievable and would result in more varied and show-accurate branching. Namely, all branches would no longer move together along the same y-value as they do now.
-- The installation could be tuned even further to the space by moving horizontally across screens rather than vertically one at a time, along with possibilities like branching specifically between screens.
-- To further tie into the show, certain timelines could be "pruned" or collide with each other, causing the visuals to change for representing a "Nexus Event" or apocolypse. Similarly, some sort of "Big Bang" could visually represent the restart rather than just disappearance of the previous timelines. These interactions would lead to even more randomized and visually complex results, as well as better represent the relationship to the series *Loki*.
+- The installation could be tuned even further to the space by moving horizontally across screens rather than vertically one at a time, along with possibilities like branching specifically between screens, though this would lessen the amount of pixels available for branching.
+- To further tie into the show, certain timelines could be "pruned" or collide with each other, causing the visuals to change for representing a "Nexus Event" or apocolypse. Another possibility would be apocolypse events and some representation of Sylvie and Loki's travels. Finaly, some sort of "Big Bang" could visually represent the restart rather than just disappearance of the previous timelines. These interactions would lead to even more randomized and visually complex results, as well as better represent the relationship to the series *Loki*.
 
 ## References
 As this was my first time working in Processing, I used the official [Processing documentation](https://processing.org) extensively, along with the following open-source examples:
