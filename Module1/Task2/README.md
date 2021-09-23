@@ -30,10 +30,11 @@ As outlined in the task description, this project is customized to the physical 
 - Click the mouse on the Canvas at any time to restart.
 
 To run the installation on other systems, consider modifying the following variables and functions:
+- Install the Sound library by going to *Sketch* -> *Import Library...* -> *Add Library...*, searching for *Sound* from *The Processing Foundation*, and pressing the *Install* button.
+- Remove lines 3 and 4, along with lines 47 and 48, to avoid using sound/having to download the sound library.
 - Decrease the BRANCH variable to increase branching speed/frequency and increase it to decrease branching.
 - Remove lines 76 to 92 if the screens are ordered properly, as these lines shift the coordinates of the timelines to account for the misordered projectors in the Leeds Studio.
 - Set MAINSCREEN to 0 if your window spans only on the displays you desire and not an additional "main display" or alternately change its value to match the width of your "main display" you want to skip.
-- Remove lines 3 and 4, along with lines 47 and 48, to avoid using sound/having to download the sound library.
 - Change other variables like THICKNESS and DELAY to mix up the parameters if desired (see code comments for all parameters and explanations of their function).
 
 ## Future Improvements
