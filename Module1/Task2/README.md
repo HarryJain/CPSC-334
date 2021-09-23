@@ -28,6 +28,7 @@ As outlined in the task description, this project is customized to the physical 
 - Open *againAndAgainAndAgain/againAndAgainAndAgain.pde* in Processing.
 - Press the *Run* button and let the program run on the projectors.
 - Click the mouse on the Canvas at any time to restart.
+
 To run the installation on other systems, consider modifying the following variables and functions:
 - Decrease the BRANCH variable to increase branching speed/frequency and increase it to decrease branching.
 - Remove lines 76 to 92 if the screens are ordered properly, as these lines shift the coordinates of the timelines to account for the misordered projectors in the Leeds Studio.
