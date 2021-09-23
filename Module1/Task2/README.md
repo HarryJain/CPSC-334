@@ -16,6 +16,8 @@ Taking this imagery as inspiration, *Again and Again and Again* (a title inspire
 
 ![Again and Again and Again](./images/IMG_3208.JPG)
 
+[Link to YouTube video demonstration](https://youtu.be/lurt8L2SHBo)
+
 ## Implementation Details
 
 ### Languages
