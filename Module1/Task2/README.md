@@ -7,8 +7,9 @@
 
 ## *Again and Again and Again*: An Homage to Marvel Studios's *Loki*
 Even as a die-hard fan of Marvel, I was particularly surprised and impressed at the visual storytelling in their series *Loki*, in which the titular character finds himself thrown into the world of multiverses, timelines, and more. In particular, I was struck by the images of the "Sacred Timeline" branching out of control in the final episode, as shown in the image below.
-
+![Loki Branching Timelines](./images/branchingTimelines.jpg)
 Taking this imagery as inspiration, *Again and Again and Again* (a title inspired by the words of Time Variance Authority agent Mobius), aims to create a generative art installation of branching timelines. To establish this connection to the show, it incorporates important aspects of plot, such as the "Sacred Timeline" running down the center of the displays, "Miss Minutes" serving as the source of the timelines, a red color shift near the borders of the displays, and the Time Variance Authority theme in the background. Additionally, the constant "rebirth" of the installation represents the circular nature of time in *Loki*, while also demonstrating the destructive power of the uncontrollable branching in the finale.
+![Again and Again and Again](./images/IMG_3208.jpg)
 
 ## Implementation Details
 
