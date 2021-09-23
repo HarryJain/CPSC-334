@@ -1,6 +1,7 @@
 # Module 1, Task 2: Generative Art
 
 ## Task Description
+![Leeds Setup](images/leeds-projectors.jpg)
 - Use the physical layout discovered in Task 1 to greate a generative art installation for the CCAM Leeds Studio Projector array.
 - Embrace the challenges of the physical space and setup to "specialize" the installation to this particular multi-projector canvas.
 
