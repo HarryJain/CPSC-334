@@ -18,7 +18,7 @@ This project uses the graphics software Processing, with the code written in the
 - *README.md* describes all aspects, creative and technical, of the art installation
 - *againAndAgainAndAgain* contains the main Processing program as well as the *.wav* music file
   - *againAndAgainAndAgain.pde* is the executable code file for running the installation (open in Processing to run)
-  - *tva.wav* is the audio file containing a copy of Natalie Holt's "TVA" from the official *Loki* soundtrack (taken from this [YouTube video](https://youtu.be/SRWSfXdlNPc)).
+  - *tva.wav* is the audio file containing a copy of Natalie Holt's "TVA" from the official *Loki* soundtrack (taken from this [YouTube video](https://youtu.be/SRWSfXdlNPc))
 - *oldStuff* contains previous and partial attempts at this installation (defunct)
 
 ## Usage Instructions
