@@ -1,7 +1,7 @@
 cd /home/pi/LocalDevelopment/CPSC-334/
-hostname -I > raspi-ip/ip.md
+date > raspi-ip/ip.md
 echo >> raspi-ip/ip.md
-date >> raspi-ip/ip.md
+hostname -I >> raspi-ip/ip.md
 git add .
 git commit -m "updated IP address"
 git push
