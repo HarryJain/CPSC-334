@@ -2,8 +2,11 @@ from gpiozero import Button
 from signal import pause
 from time import sleep
 
-x1 = Button(15)
-x2 = Button(14)
+#x1 = Button(15)
+#x2 = Button(17)
+
+x1 = Button(14)
+x2 = Button(4)
 
 def left():
     print("Joystick left")
