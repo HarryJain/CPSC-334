@@ -1,7 +1,8 @@
 from gpiozero import Button
 from signal import pause
-import os
-import math
+from os import system
+from math import sqrt
+from sys import exit
 
 button = Button(2)
 switch = Button(3)
@@ -22,21 +23,27 @@ y = []
 realx = []
 realy = []
 
+colors = {'red': '\33[41m', 'yellow': '\33[43m', 'green': '\33[42m', 'end': '\33[0m'}
+
 def calc_dist():
-    return math.sqrt((realx[0] - realx[player_index]) ** 2 + (realy[0] - realy[player_index]) ** 2)
+    return sqrt((realx[0] - realx[player_index]) ** 2 + (realy[0] - realy[player_index]) ** 2)
 
 def call():
+    print(f'{players[player_index]}: {realx[player_index]}, {realy[player_index]}')
     if player_index != 0:
-        print(f'{players[player_index]}: {realx[player_index]}, {realy[player_index]}')
         dist = calc_dist()
-        print(dist)
+        if dist < 15:
+            print(f'{players[player_index]} found {players[0]} and wins!!!')
+            exit(0)
+        dist_color = 'green' if dist < 50 else 'yellow' if dist < 300 else 'red' 
         print(players[player_index] + ': Marco!')
-        print(players[0] + ': Polo!')
+        print(players[0] + ': '  + colors[dist_color] + 'Polo!' + colors['end'])
+        print(dist)
 
 def switch_player():
     global player_index
     player_index = (player_index + 1) % len(players)
-    os.system('clear')
+    system('clear')
     call()
 
 def draw():
@@ -61,7 +68,7 @@ def draw():
     print(f'{players[player_index]}: {realx[player_index]}, {realy[player_index]}')
  
 def stop():
-    os.system('clear')
+    system('clear')
     call() 
 
 def main():
