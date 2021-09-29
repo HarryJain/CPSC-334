@@ -1,5 +1,7 @@
 cd /home/pi/LocalDevelopment/CPSC-334/
+git stash
 git pull
+git stash pop
 date > raspi-ip/ip.md
 echo >> raspi-ip/ip.md
 hostname -I >> raspi-ip/ip.md
