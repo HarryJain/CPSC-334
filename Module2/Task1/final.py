@@ -40,7 +40,7 @@ def calc_dist():
 def call():
     global won
     print(f'Turn {turn}')
-    print(f'{players[player_index]}: {realx[player_index]}, {realy[player_index]}')
+    print(f'{players[player_index]}: {int(realx[player_index])}, {int(realy[player_index])}')
     
     # Print a call to Marco and the resulting distance if it is not Marco's turn
     if player_index != 0:
@@ -52,6 +52,8 @@ def call():
         if dist < 15:
             print(f'{players[player_index]} found {players[0]} and wins!!!')
             won = True
+    if not won:
+        print('\nFlip the switch to the on position again to further change your position. Press the button to change to the next player.')
 
 # Clear the screen and switch the turn to the next player
 def switch_player():
@@ -83,7 +85,7 @@ def move():
     if y[player_index] % SPEED == 0:
         realy[player_index] = y[player_index] / SPEED
     
-    print(f'{players[player_index]}: {realx[player_index]}, {realy[player_index]}')
+    print(f'{players[player_index]}: {int(realx[player_index])}, {int(realy[player_index])}')
 
 # Stop the current player's movement and iterate their turn
 def stop():
@@ -98,7 +100,7 @@ def main():
     global eot
 
     # Welcome the players
-    print('Welcome to terminal Marco Polo by Harry Jain. Check README.md for detailed instructions and rules, and enjoy the game!')
+    print('Welcome to terminal Marco Polo by Harry Jain. Check README.md for detailed instructions and rules, and enjoy the game!\n')
 
     # Take input for the number of players, looping until an integer between 2 and 9, inclusive, is chosen 
     while True:    
@@ -121,14 +123,14 @@ def main():
     # Stop taking joystick input when the swithc is off
     switch.when_released = stop
 
-    print('Flip the switch on for the Marco to start the game.')
+    print('\nFlip the switch on for the "Marco" to start the game.')
     
     # Whenever the swith is pressed and the joystick button in not down (a pause button effectively), move the player
     while True and not won:
         if switch.is_pressed and not joy_button.is_pressed:
             if turn >= TURN_LIMIT:
                 if eot == False:
-                    print(f'You have used all {TURN_LIMIT} turns. Turn off the switch and press the button to change to the next player.')
+                    print(f'\nYou have used all {TURN_LIMIT} turns. Turn off the switch and press the button to change to the next player.')
                     eot = True
             else:
                 move()
