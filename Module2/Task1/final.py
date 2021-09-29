@@ -1,41 +1,48 @@
+# Library imports for physical interfacing, terminal clearing, and distance calculations
 from gpiozero import Button
-from signal import pause
 from os import system
 from math import sqrt
-from sys import exit
 
+# Physical connections via GPIO
 button = Button(2)
 switch = Button(3)
-
 joy_x = Button(15)
 joy_y = Button(14)
 joy_button = Button(4)
 
+# Constants that can be modified to change gameplay
 SPEED = 1000
 XLIMIT = 100
 YLIMIT = 100
 TURN_LIMIT = 5
 
+# Variables storing data about the players and their current game state
 players = []
 player_index = 0
 turn = 0
 eot = False
 won = False
 
+# Lists containing the actual x and y positions of the players as well as those shown on screen
 x = []
 y = []
 realx = []
 realy = []
 
+# A dictionary of colors for printing proximity
 colors = {'red': '\33[41m', 'yellow': '\33[43m', 'green': '\33[42m', 'end': '\33[0m'}
 
+# Calculate the distance of the current player from Marco.
 def calc_dist():
     return sqrt((realx[0] - realx[player_index]) ** 2 + (realy[0] - realy[player_index]) ** 2)
 
+# Print out the player information after a move
 def call():
     global won
     print(f'Turn {turn}')
     print(f'{players[player_index]}: {realx[player_index]}, {realy[player_index]}')
+    
+    # Print a call to Marco and the resulting distance if it is not Marco's turn
     if player_index != 0:
         dist = calc_dist() 
         dist_color = 'green' if dist < 50 else 'yellow' if dist < 300 else 'red' 
@@ -46,6 +53,7 @@ def call():
             print(f'{players[player_index]} found {players[0]} and wins!!!')
             won = True
 
+# Clear the screen and switch the turn to the next player
 def switch_player():
     global turn, eot, player_index
     if not switch.is_pressed:
@@ -55,6 +63,7 @@ def switch_player():
         eot = False
         call()
 
+# Move the current player according to the joystick input and print their position, slowing them down by the SPEED constant and keeping them with the limit constants
 def move():
     global x, y, realx, realy
     
@@ -75,7 +84,8 @@ def move():
         realy[player_index] = y[player_index] / SPEED
     
     print(f'{players[player_index]}: {realx[player_index]}, {realy[player_index]}')
- 
+
+# Stop the current player's movement and iterate their turn
 def stop():
     global turn
     if eot == False:
@@ -83,8 +93,12 @@ def stop():
         turn += 1
         call() 
 
+# Give the players instructions and run the main logic
 def main():
     global eot
+
+    # Welcome the players
+    print('Welcome to terminal Marco Polo by Harry Jain. Check README.md for detailed instructions and rules, and enjoy the game!')
 
     # Take input for the number of players, looping until an integer between 2 and 9, inclusive, is chosen 
     while True:    
@@ -107,6 +121,8 @@ def main():
     # Stop taking joystick input when the swithc is off
     switch.when_released = stop
 
+    print('Flip the switch on for the Marco to start the game.')
+    
     # Whenever the swith is pressed and the joystick button in not down (a pause button effectively), move the player
     while True and not won:
         if switch.is_pressed and not joy_button.is_pressed:
@@ -117,5 +133,6 @@ def main():
             else:
                 move()
 
+# Call the main function
 if __name__ == "__main__":
     main()
