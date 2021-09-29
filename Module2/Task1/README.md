@@ -56,7 +56,7 @@ In order to actually play the game, get two or more players and use the rules ou
 
 ![Gameplay](assets/gameplay.gif)
 
-[Full quality and length gameplay demonstration via *ssh*](assets/gameplay_screen_recording.mov)
+[Full length, high quality gameplay demonstration via *ssh*](assets/gameplay_screen_recording.mov)
 
 
 ## Implementation Details
