@@ -24,9 +24,10 @@ Therefore, I turned to the classic pool game Marco Polo, which is essentially a 
 
 This terminal version flips the script somewhat, with all the other players "blindly" searching for the first player, the *Marco*. However, the same basic idea applies, and it turns out to be a fun, if flawed, way to experiment and address movement in a two dimensional space using the given components.
 
+
 ## Usage Instructions
 
-## Running and Setup
+### Running and Setup
 To set up this repository for local use, you need to
 - Create a replica circuit connected to a Raspberry Pi like the one described below.
 - Have an installation of Python3 with the *gpiozero* library installed.
@@ -36,7 +37,7 @@ To set up this repository for local use, you need to
 - Flip the switch to the off position to start (black wire).
 - Run the code using *python3 final.py*.
 
-## Gameplay
+### Gameplay
 In order to actually play the game, get two or more players and use the rules outlined below.
 - When prompoted, input the number of people playing.
 - Input the names of each of the players (**note:** player 1 will be the *Marco* who is searched for).
