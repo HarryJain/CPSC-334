@@ -17,6 +17,7 @@ Taking this imagery as inspiration, *Again and Again and Again* (a title inspire
 ![Again and Again and Again](./images/IMG_3208.JPG)
 
 [Link to YouTube video demonstration](https://youtu.be/lurt8L2SHBo)
+
 **Note:** the video was taken before adjusting for the disordered screens - see [this video](https://drive.google.com/file/d/1A6kfnWYGWetvha9P2aVcn8j6SxgXjgjS/view?usp=sharing) for the new functionality filmed less elegantly).
 
 ## Implementation Details
