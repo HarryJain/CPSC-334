@@ -81,6 +81,7 @@ This project uses a basic Python installation on a Raspberry Pi running Raspian.
 ### File Structure
 - *READMe.md* (read for instructions) describes all aspects of the project and game.
 - *final.py* contains the final Marco Polo terminal game.
+- *assets* contains the images and videos used in *README.md*
 - *old_stuff* contains previous attempts at various sub-parts of the game code, as well as for several other ideas outlined below.
 
 
