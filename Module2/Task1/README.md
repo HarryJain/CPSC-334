@@ -18,6 +18,10 @@ In preparation for a variety of game ideas for Task 2 of this module, I used Tas
 
 Therefore, I turned to the classic pool game Marco Polo, which is essentially a variant of tag. More specifically, one player is designated at *Polo* and has to close their eyes to look for all the other players (the *Marcos*) who have their eyes open. Whenever the searching player calls out for *Marco*, all the other players must shout back *Polo* so that the searcher can find them by voice.
 
+![Marco Polo](assets/marco_polo.png)
+
+[Link to YouTube video demonstration (do watch for important background)](https://youtu.be/zjoAy5AJkwY)
+
 This terminal version flips the script somewhat, with all the other players "blindly" searching for the first player, the *Marco*. However, the same basic idea applies, and it turns out to be a fun, if flawed, way to experiment and address movement in a two dimensional space using the given components.
 
 ## Usage Instructions
@@ -47,7 +51,9 @@ In order to actually play the game, get two or more players and use the rules ou
     - Flip the switch to the off position to pause or stop at a guessing position.
     - Look at the given proximity output and consider which direction to move for your next guess. You are allowed 5 guesses each round and are aiming to get within a distance of 15 of *Marco*.
     - Press the button to move to the next player if satisfied/out of turns.
-- Repeat the last two major steps for as many rounds are necessary until *Marco* is found.
+- Repeat the last two major steps for as many rounds are necessary until *Marco* is found (within a distance of 15).
+
+[Gameplay demonstration via *ssh*](assets/gameplay_screen_recording.mov)
 
 
 ## Implementation Details
@@ -62,6 +68,8 @@ All of these components were wired to GPIO pins of the Raspberry Pi as well as t
 - Button: one pin to GND from the Pi and the other to GPIO 2
 - Switch: one pin to GND from the Pi and the other to GPIO 3
 - Joystick: VRX to GPIO 14, VRY to GPIO 15, +5V to 5V from the Raspberry Pi, GND to GND from the Pi, and SW to GPIO 4
+
+![Circuit](assets/circuit.JPG)
 
 ### Languages and Frameworks
 This project uses a basic Python installation on a Raspberry Pi running Raspian. In addition, it uses the following libraries:
@@ -86,8 +94,10 @@ This project uses a basic Python installation on a Raspberry Pi running Raspian.
 ### Downsides
 - While simple and fun, the exclusively terminal-based output is not as engaging as a visual one nor does it test any of the graphical components I plan to use in Task 2 (most likely vis *pygame*).
 - The *gpiozero* library does not provide as detailed of control as others like *RPi.GPIO*.
-- Trying to use the joystick as a full 2-axis input via digital input is very difficult and makes moving your character difficult. I tried to address this with pull-down resistors altering the resting state, but it just seems impossible to get the desired 3 states (e.g. left, resting, right) with a binary digital input.
 - The circuit itself is relatively fragile and difficult to use without some sort of enclosure.
+- Trying to use the joystick as a full 2-axis input via digital input is very difficult and makes moving your character difficult. I tried to address this with pull-down resistors altering the resting state, but it just seems impossible to get the desired 3 states (e.g. left, resting, right) with a binary digital input.
+
+[Link to video demonstration of the frustration caused by joystick oddities late at night...](https://drive.google.com/file/d/1k-CLAhUNHLnZfPEp-Tc-I_WQrhwyUld9/view?usp=sharing)
 
 
 ## Abandoned Ideas

@@ -49,13 +49,15 @@ def call():
         print(players[player_index] + ': Marco!')
         print(players[0] + ': '  + colors[dist_color] + 'Polo!' + colors['end'])
         print(f'{players[0]} is {colors[dist_color]}{dist}{colors["end"]} away.')
+        # If the distance is less than 15, that player has won
         if dist < 15:
             print(f'{players[player_index]} found {players[0]} and wins!!!')
             won = True
+    # Prompt user with instructions after turn
     if not won:
         print('\nFlip the switch to the on position again to further change your position. Press the button to change to the next player.')
 
-# Clear the screen and switch the turn to the next player
+# Clear the screen and switch the turn to the next player if the switch is not on
 def switch_player():
     global turn, eot, player_index
     if not switch.is_pressed:
@@ -65,29 +67,36 @@ def switch_player():
         eot = False
         call()
 
-# Move the current player according to the joystick input and print their position, slowing them down by the SPEED constant and keeping them with the limit constants
+# Move the current player according to the joystick input and print their "real" position,
+#   slowing down their increase/decrease by the SPEED constant and keeping their adjusted
+#   "real" positions within the limit constants
 def move():
     global x, y, realx, realy
     
+    # Move the x position withint the limits according to the joystick
     if realx[player_index] < XLIMIT and joy_x.is_pressed:
         x[player_index] += 1
     elif realx[player_index] > 0 and not joy_x.is_pressed:
         x[player_index] -= 1
     
+    # Create the adjusted "realx" by dividing by SPEED
     if x[player_index] % SPEED == 0:
         realx[player_index] = x[player_index] / SPEED
 
+    # Move the y position withint the limits according to the joystick
     if realy[player_index] < YLIMIT and joy_y.is_pressed:
         y[player_index] += 1
     elif realy[player_index] > 0 and not joy_y.is_pressed:
         y[player_index] -= 1
     
+    # Create the adjusted "realy" by dividing by SPEED
     if y[player_index] % SPEED == 0:
         realy[player_index] = y[player_index] / SPEED
     
+    # Print the player's new position
     print(f'{players[player_index]}: {int(realx[player_index])}, {int(realy[player_index])}')
 
-# Stop the current player's movement and iterate their turn
+# Stop the current player's movement and iterate their turn if their turn hasn't ended
 def stop():
     global turn
     if eot == False:
@@ -123,15 +132,18 @@ def main():
     # Stop taking joystick input when the swithc is off
     switch.when_released = stop
 
+    # Prompt the users to start the game
     print('\nFlip the switch on for the "Marco" to start the game.')
     
     # Whenever the swith is pressed and the joystick button in not down (a pause button effectively), move the player
     while True and not won:
+        # If the player has no turns left, prompt them to go to the next player
         if switch.is_pressed and not joy_button.is_pressed:
             if turn >= TURN_LIMIT:
                 if eot == False:
                     print(f'\nYou have used all {TURN_LIMIT} turns. Turn off the switch and press the button to change to the next player.')
                     eot = True
+            # If the player has more turns, let them move
             else:
                 move()
 
