@@ -14,9 +14,11 @@ joy_button = Button(4)
 SPEED = 1000
 XLIMIT = 100
 YLIMIT = 100
+TURN_LIMIT = 4
 
 players = []
 player_index = 0
+turn = 0
 
 x = []
 y = []
@@ -44,6 +46,7 @@ def switch_player():
     global player_index
     player_index = (player_index + 1) % len(players)
     system('clear')
+    turn = 0
     call()
 
 def draw():
@@ -69,6 +72,7 @@ def draw():
  
 def stop():
     system('clear')
+    turn += 1
     call() 
 
 def main():
