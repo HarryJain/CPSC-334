@@ -55,6 +55,7 @@ In order to actually play the game, get two or more players and use the rules ou
 - Repeat the last two major steps for as many rounds are necessary until *Marco* is found (within a distance of 15).
 
 ![Gameplay](assets/gameplay.gif)
+
 [Full quality and length gameplay demonstration via *ssh*](assets/gameplay_screen_recording.mov)
 
 
