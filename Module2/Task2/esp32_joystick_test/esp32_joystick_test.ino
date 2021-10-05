@@ -29,7 +29,7 @@ void setup()
     Serial.println("start");
     
     
-    menuOption = menu();
+    //menuOption = menu();
     
 }
 
@@ -38,7 +38,7 @@ void loop()
 {
     
     
-    if(menuOption == '1') {
+    //if(menuOption == '1') {
     // PSP 2-Axis Analog Thumb Joystick - Test Code
     // Read Joystick X,Y axis
     int joystickPSPX = analogRead(JOYSTICKPSP_PIN_X);
@@ -46,7 +46,7 @@ void loop()
     Serial.print(joystickPSPX); Serial.print("\t");
     Serial.println(joystickPSPY);
 
-    }
+    //}
     
     if (millis() - time0 > timeout)
     {
