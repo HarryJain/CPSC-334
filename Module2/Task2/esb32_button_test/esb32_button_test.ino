@@ -1,8 +1,10 @@
 // constants won't change. They're used here to set pin numbers:
-const int buttonPin = 7;     // the number of the pushbutton pin
+const int buttonPin = 34;     // the number of the pushbutton pin
 
 // variables will change:
 int buttonState = 0;         // variable for reading the pushbutton status
+
+int printState = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -17,8 +19,14 @@ void loop() {
 
   // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
   if (buttonState == HIGH) {
-    Serial.println("I'm soooo high");
+    if (printState == 0 || printState == -1) {
+      Serial.println("I'm soooo high");
+    }
+    printState = 1;
   } else {
-    Serial.println("I'm feeling down");
+    if (printState == 0 || printState == 1) {
+      Serial.println("I'm feeling down");
+    }
+    printState = -1;
   }
 }
