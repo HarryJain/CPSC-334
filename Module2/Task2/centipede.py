@@ -6,6 +6,7 @@ from pygame import *
 from pygame import joystick
 import serial
 from time import sleep
+import threading
 #from gpiozero import Button
 
 
@@ -47,9 +48,42 @@ NORMAL = 1
 END = 2
 
 
+# esp_vals constants
+REP_COUNT = 3
+JOY_X = 0
+JOY_Y = 1
+JOY_BUTTON = 2
+BUTTON = 3
+SWITCH = 4
+
+
 # Initialize the font and set the title of the window
 pyfont.init()
 pydisplay.set_caption("Centipede")
+
+
+# Define list for storing input values from esp32
+esp_vals = [2800, 2800, 1000, 1000, 0]
+
+
+def read_esp():
+  global esp_vals
+  
+  ser = serial.Serial('/dev/tty.SLAB_USBtoUART', 115200, timeout = 1)
+  ser.flush()
+
+  reps = []
+
+  while True:
+    if ser.in_waiting > 0:
+      vals = ser.readline().decode('utf-8').rstrip().split(', ')
+      vals = [ int(val) for val in vals if val != '' and val.isdigit() ]
+      if len(vals) == 5:
+        reps.append(vals)
+      if len(reps) == REP_COUNT:
+        esp_vals = [ int(sum([ reps[j][i] for j in range(REP_COUNT) ]) / REP_COUNT) for i in range(5) ]
+        reps = []
+        #print(esp_vals)
 
 
 def collide(obj1, obj2):
@@ -255,6 +289,8 @@ def game():
     # Mac
     # ser = serial.Serial('/dev/tty.SLAB_USBtoUART', 115200, timeout = 1)
     # ser.flush()
+    esp_thread = threading.Thread(target = read_esp, name = "esp")
+    esp_thread.start()
 
     # Top-level variables
     run = True
@@ -321,6 +357,13 @@ def game():
     pause = False
 
     while run:
+        '''if ser.in_waiting > 0:
+            esp_vals = ser.readline().decode('utf-8').rstrip().split(', ')
+            esp_vals = [ int(val) for val in esp_vals if val != '' and val.isdigit() ]
+            if len(esp_vals) == 5:
+                joy_x, joy_y, joy_button, button, switch = esp_vals
+                #print(esp_vals)'''
+
         clock.tick(FPS)
 
         for event in pyevent.get():
@@ -335,9 +378,6 @@ def game():
         if not pause:
             # clock.tick(FPS)
             label_height = redraw_window()
-
-            #if ser.in_waiting > 0:
-            #    (joystick_x, joystick_y) = ser.readline().decode('utf-8').rstrip().split(', ')
 
             if len(centipedes) == 0:# or len(centipedes[0].segments) == 0:
                 centipedes = [Centipede(WIDTH, csize + label_height + 10, csize, cvel)]
@@ -357,19 +397,19 @@ def game():
 
             keys = pykey.get_pressed()
             # Move left
-            if keys[pygame.K_LEFT]:
+            if keys[pygame.K_LEFT] or esp_vals[JOY_X] < 2600:
                 player.move((-1, 0), obstacles)
             # Move right
-            if keys[pygame.K_RIGHT]:
+            if keys[pygame.K_RIGHT] or esp_vals[JOY_X] > 3000:
                 player.move((1, 0), obstacles)
             # Move up
-            if keys[pygame.K_UP]:
+            if keys[pygame.K_UP] or esp_vals[JOY_X] < 2600:
                 player.move((0, -1), obstacles)
             # Move down
-            if keys[pygame.K_DOWN]:
+            if keys[pygame.K_DOWN] or esp_vals[JOY_Y] > 3000:
                 player.move((0, 1), obstacles)
             # Shoot on space press
-            if keys[pygame.K_SPACE]:
+            if keys[pygame.K_SPACE] or esp_vals[BUTTON] == 0:
                 player.shoot()
 
             for centipede in centipedes:
@@ -420,6 +460,7 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 game()
     pygame.quit()
+
 
 if __name__ == "__main__":
    main()
