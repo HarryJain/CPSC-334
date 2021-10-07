@@ -69,7 +69,8 @@ esp_vals = [2800, 2800, 1000, 1000, 0]
 def read_esp():
   global esp_vals
   
-  ser = serial.Serial('/dev/tty.SLAB_USBtoUART', 115200, timeout = 1)
+  #ser = serial.Serial('/dev/tty.SLAB_USBtoUART', 115200, timeout = 1)
+  ser = serial.Serial('/dev/ttyUSB0', 115200, timeout = 1)
   ser.flush()
 
   reps = []
