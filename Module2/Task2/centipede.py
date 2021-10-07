@@ -69,8 +69,8 @@ esp_vals = [2800, 2800, 1000, 1000, 0]
 def read_esp():
   global esp_vals
   
-  #ser = serial.Serial('/dev/tty.SLAB_USBtoUART', 115200, timeout = 1)
-  ser = serial.Serial('/dev/ttyUSB0', 115200, timeout = 1)
+  ser = serial.Serial('/dev/tty.SLAB_USBtoUART', 115200, timeout = 1)
+  #ser = serial.Serial('/dev/ttyUSB0', 115200, timeout = 1)
   ser.flush()
 
   reps = []
@@ -452,7 +452,7 @@ def main():
     run = True
     while run:
         WIN.fill(WHITE)
-        title_label = title_font.render("Press the button to begin...", 1, NAVY)
+        title_label = title_font.render("Click the touchpad to begin...", 1, NAVY)
         WIN.blit(title_label, (WIDTH / 2 - title_label.get_width() / 2, HEIGHT / 2 - title_label.get_height() / 2))
         pydisplay.update()
         for event in pyevent.get():
