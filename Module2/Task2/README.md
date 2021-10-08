@@ -8,6 +8,7 @@ The second task of this Interactive Devices module aims to take the experience f
 - Have some digital output, audio or video (monitor, mini-screen, etc.)
 However, instead of requiring use of the Raspberry Pi, the device:
 - Must use the ESP32 (or any other Arduino-style microcontroller) and may additionally use the Raspberry Pi
+
 With the additional constraints that it:
 - Must have an enclosure or enclosures
 - May use as many LEDs as desired
