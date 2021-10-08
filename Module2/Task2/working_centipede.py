@@ -10,12 +10,12 @@ from os import path
 
 # Global constants
 
-# Window constants for size, the fraction of player movment, and the window itself
+# Set window size and store a reference to it
 WIDTH, HEIGHT = 480, 640
 BOTTOM_FRAC = 2 / 3
 WIN = pydisplay.set_mode((WIDTH, HEIGHT))
 
-# The frames per second of the game
+# Set the frames per second
 FPS = 60
 
 # Color constants
@@ -33,6 +33,7 @@ PURPLE = (165, 130, 210)
 # Colors usable for the barriers
 ocolors = [RED, YELLOW, BLUE, PINK, ORANGE, PURPLE]
 
+
 # Arcade colors (defunct)
 '''
 RED = (255, 0, 0)
@@ -45,7 +46,7 @@ START = 0
 NORMAL = 1
 END = 2
 
-# esp_vals constants, including the repitions for smoothing input
+# esp_vals constants
 REP_COUNT = 4
 JOY_X = 0
 JOY_Y = 1
@@ -53,42 +54,33 @@ JOY_BUTTON = 2
 BUTTON = 3
 SWITCH = 4
 
+
 # Initialize the font and set the title of the window
 pyfont.init()
 pydisplay.set_caption("Centipede")
 
-# List for storing input values from esp32 with non-action default values
+
+# Define list for storing input values from esp32
 esp_vals = [2800, 2800, 1000, 1000, 1]
 
 
 def read_esp():
-    ''' Sets up communication
-    '''
     global esp_vals
 
-    # Attach to the serial port for either the Pi or the Mac
-    #   depending on CLI arguments
     if len(argv) > 1 and argv[1] == '--pi':
         ser = serial.Serial('/dev/ttyUSB0', 115200, timeout = 1)
     else:
         ser = serial.Serial('/dev/tty.SLAB_USBtoUART', 115200, timeout = 1)
-    ser.flush()
+        ser.flush()
 
-    # Initialize a list for storing repitions of the sensor values to average
     reps = []
 
-    # Continually update the esp_vals list
     while True:
         if ser.in_waiting > 0:
-            #
             vals = ser.readline().decode('utf-8').rstrip().split(', ')
             vals = [ int(val) for val in vals if val != '' and val.isdigit() ]
-            
-            # Only add the values to the reps list if it has all 5 sensor values
             if len(vals) == 5:
                 reps.append(vals)
-
-            # If reps has REP_COUNT input readings, average thema and set esp_vals to them
             if len(reps) == REP_COUNT:
                 esp_vals = [ int(sum([ reps[j][i] for j in range(REP_COUNT) ]) / REP_COUNT) for i in range(5) ]
                 reps = []
@@ -96,16 +88,10 @@ def read_esp():
 
 
 def collide(obj1, obj2):
-    ''' Takes in two rectangle objects and returns a boolean of whether they
-            are colliding at the given time.
-    '''
     return obj1.colliderect(obj2)
 
 
 class Laser:
-    ''' Represents the lasers shot from the player at the centipede or barriers,
-            with control of its drawing, movement, and collisions.
-    '''
     def __init__(self, x, y, width, height):
         self.x = x
         self.y = y
@@ -128,9 +114,6 @@ class Laser:
 
 
 class Obstacle:
-    ''' Represents the circle obstacles to the player and centipede movement,
-            controlling its drawing and collisions.
-    '''
     def __init__(self, x, y, radius):
         self.x = x
         self.y = y
@@ -147,10 +130,8 @@ class Obstacle:
 
 
 class Player:
-    ''' Represents the player centipede shooter, controlling its drawing,
-        its shooting, and its movement (along with that of its lasers)
+    ''' Class to represent the player bug shooter
     '''
-    # Constant to prevent spamming the button and shooting too many lasers
     COOLDOWN = 30
 
     def __init__(self, x, y, size, vel):
@@ -170,12 +151,9 @@ class Player:
             laser.draw(window)
 
     def move(self, direction, obstacles):
-        # Create basic new x and y values from the velocity
         newx = self.x + direction[0] * self.vel
         newy = self.y + direction[1] * self.vel
-        #
         limits = [0, WIDTH - self.size + 1, int(HEIGHT * BOTTOM_FRAC), HEIGHT - self.size + 1]
-        # Modify the limits if any objects are hit so the player cannot move through them
         for obstacle in obstacles:
             if collide(self.rect, obstacle.rect):
                 if self.rect.x > obstacle.rect.x:
@@ -186,7 +164,6 @@ class Player:
                     limits[2] = self.rect.y
                 if self.rect.y < obstacle.rect.y:
                     limits[3] = self.rect.y
-        # Move according to the basic x and y values and the limits
         self.x = newx if newx in range(limits[0], limits[1]) else limits[0] + self.vel - 1 if newx < limits[0] else limits[1] - self.vel
         self.y = newy if newy in range(limits[2], limits[3]) else limits[2] + self.vel - 1 if newy < limits[2] else limits[3] - self.vel
 
@@ -197,28 +174,19 @@ class Player:
             self.cooldown_counter = 1
 
     def cooldown(self):
-        # If the cooldown is done, reset for more shooting
         if self.cooldown_counter >= self.COOLDOWN:
             self.cooldown_counter = 0
-        # If the player just shot, iterate the cooldown counter
         elif self.cooldown_counter > 0:
             self.cooldown_counter += 1
 
     def move_lasers(self, speed, segments, obstacles):
-        # Store a list of the segments and obstacles hit by the lasers
         hit = {'segments': [], 'obstacles': []}
-
-        # Cooldown while the laser moves
         self.cooldown()
-
-        # Move each of the lasers and check for collisions
         for laser in self.laserz:
             laser.move(speed)
             if laser.off_screen():
                 self.laserz.remove(laser)
             else:
-                # Check for hitting centipede segments, and if they are hit, 
-                #   increase score accordingly
                 for segment in segments:
                     if laser.collision(segment):
                         hit['segments'].append(segment)
@@ -226,8 +194,6 @@ class Player:
                         self.score += 10
                         if laser in self.laserz:
                             self.laserz.remove(laser)
-                # Check for hitting centipede segments, and if they are hit,
-                #   shrink the obstacles and increase score accordingly
                 for obstacle in obstacles:
                     if laser.collision(obstacle):
                         hit['obstacles'].append(obstacle)
@@ -238,13 +204,11 @@ class Player:
                             obstacles.remove(obstacle)
                         if laser in self.laserz:
                             self.laserz.remove(laser)
-        # Returns the hit objects for later processing
         return hit
 
 
 class Centipede:
-    ''' Represents a whole centipede, containing a list of segments
-            that move in unison until broken up.
+    ''' Class to represent a whole centipede
     '''
     def __init__(self, x, y, radius, vel):
         self.x = x
@@ -258,32 +222,30 @@ class Centipede:
         self.limits = [0, WIDTH + 1]
 
     def draw(self, window):
+        # for i in range(self.length):
+        #     self.segments[i].draw(window)
         for segment in self.segments:
             segment.draw(window)
 
     def move(self, obstacles, player):
-        # Move all the child segments
         if self.segments:
-            # Move the head of the centipede and set a barrier for the movement
-            #   of the other segments if it hits a barrier so they all move
-            #   together
             prevx, prevy = self.segments[0].x, self.segments[0].y
             self.segments[0].move(self.limits, obstacles)
             if prevy != self.segments[0].y and len(self.segments) > 1:
                 self.limits[self.segments[1].vel < 0] = prevx
-            # Move the rest of the segments according to what the head does
+
+            # for i in range(1, self.length):     
+            #     self.segments[i].move(self.limits)
             for segment in self.segments[1:]:
                 segment.move(self.limits, obstacles)
-                # Signal a loss of life if the player hits any segment
                 if collide(segment.rect, player.rect):
                     return 'lose life'
-            # Reset the x-limits to the screen limits
+
             self.limits = [0, WIDTH + 1]
 
 
 class Segment:
-    ''' Represents a single segment of a centipede, controlling its own
-            drawing and movment (based on passed limits)
+    ''' Class to represent a segment of a centipede
     '''
     def __init__(self, x, y, size, vel):
         self.x = x
@@ -299,7 +261,6 @@ class Segment:
         pydraw.circle(window, GREEN, (self.x, self.y), self.size, self.size)
 
     def move(self, limits, obstacles):
-        # 
         newx = self.x - self.vel
         if self.state == START:
             self.x = newx
@@ -325,9 +286,16 @@ class Segment:
 
 
 def game():
-    ''' Run the main program loop to play the game, updating every 1/FPS of
-            a second.
+    ''' Run the main program loop
     '''
+    # Pi
+    # ser = serial.Serial('/dev/ttyUSB0', 115200, timeout = 1)
+    # Mac
+    # ser = serial.Serial('/dev/tty.SLAB_USBtoUART', 115200, timeout = 1)
+    # ser.flush()
+    # esp_thread = threading.Thread(target = read_esp, name = "esp")
+    # esp_thread.start()
+
     # Top-level variables
     run = True
     lost = False
@@ -345,6 +313,7 @@ def game():
     player = Player(WIDTH / 2 - psize / 2, HEIGHT - psize - 10, psize, pvel)
 
     centipedes = []
+    clength = random.randint(10, 13)
     cvel = 3
     csize = 9
     initial = True
@@ -354,8 +323,6 @@ def game():
     obstacles = []
     orects = []
     ocount = random.randint(20, 30)
-
-    # For the random number of obstacles
     for i in range(ocount):
         valid = False
         while not valid:
@@ -396,6 +363,13 @@ def game():
     pause = False
 
     while run:
+        '''if ser.in_waiting > 0:
+            esp_vals = ser.readline().decode('utf-8').rstrip().split(', ')
+            esp_vals = [ int(val) for val in esp_vals if val != '' and val.isdigit() ]
+            if len(esp_vals) == 5:
+                joy_x, joy_y, joy_button, button, switch = esp_vals
+                #print(esp_vals)'''
+
         clock.tick(FPS)
         label_height = redraw_window()
 
@@ -411,13 +385,16 @@ def game():
         
         if not ((len(argv) > 1 and argv[1] == "--keyboard") or (len(argv) > 2 and argv[2] == "--keyboard")):
             pause = esp_vals[SWITCH] == 0
-
+            
         if esp_vals[JOY_BUTTON] == 0:
             pygame.image.save(WIN, path.join("screenshots", f"screenshot{screenshot_count}.jpg"))
             screenshot_count += 1
 
         if not pause:
-            if len(centipedes) == 0:
+            # clock.tick(FPS)
+            #label_height = redraw_window()
+
+            if len(centipedes) == 0:# or len(centipedes[0].segments) == 0:
                 if not initial:
                     redraw_window(GREEN)
                     pause = True
@@ -434,6 +411,19 @@ def game():
                     initial = False
                 pause = False
                 centipedes = [Centipede(WIDTH, csize + label_height + 10, csize, cvel)]
+                # clength = random.randint(10, 13)
+                # for i in range(clength):
+                #     centipede = Segment(WIDTH + i * csize * 2, csize + label_height + 10, csize, cvel)
+                #     centipedes.append(centipede)
+            
+            # for event in pyevent.get():
+            #     if event.type == pygame.QUIT:
+            #         run = False
+            #     if event.type == pygame.KEYDOWN:
+            #         if event.key == pygame.K_p:
+            #             pause = True if pause == False else False
+            #     if event.type == pygame.MOUSEBUTTONDOWN:
+            #         pygame.image.save(WIN, "screenshot.jpg")
 
             keys = pykey.get_pressed()
             # Move left
@@ -479,32 +469,31 @@ def game():
                         obstacles.append(Obstacle(hit.x, hit.y, csize))
                 if not centipede.segments: 
                     centipedes.remove(centipede)
-
+    
+            #obstacle_hits = player.move_lasers(-lvel, obstacles, False)
+        # else:
+        #     for event in pyevent.get():
+        #         if event.type == pygame.QUIT:
+        #             run = False
+        #         if event.type == pygame.KEYDOWN:
+        #             if event.key == pygame.K_p:
+        #                 pause = True if pause == False else False
+        #         if event.type == pygame.MOUSEBUTTONDOWN:
+        #             pygame.image.save(WIN, "screenshot.jpg")
 
 def main():
-    ''' Start the program by connecting the ESP32 if desired and showing
-            a basic menu screen, while also dealing with quitting the program
-    '''
-    # Set the title font
     title_font = pyfont.SysFont("comicsans", 40)
-    
-    # Controls whether the game is running or quit
     run = True
 
-    # Start the separate thread for getting ESP32 values if desired
     if not ((len(argv) > 1 and argv[1] == "--keyboard") or (len(argv) > 2 and argv[2] == "--keyboard")):
         esp_thread = threading.Thread(target = read_esp, name = "esp")
         esp_thread.start()
 
-    # Run the game until the user quits (from the menu)
     while run:
-        # Draw a basic menu screen
         WIN.fill(WHITE)
         title_label = title_font.render("Press the button to begin...", 1, NAVY)
         WIN.blit(title_label, (WIDTH / 2 - title_label.get_width() / 2, HEIGHT / 2 - title_label.get_height() / 2))
         pydisplay.update()
-        # Start the game on either a touchpad/mouse or button click
-        #   and quit when the window is closed
         for event in pyevent.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -515,6 +504,5 @@ def main():
     pygame.quit()
 
 
-# Run the main function to start
 if __name__ == "__main__":
    main()

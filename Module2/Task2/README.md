@@ -54,7 +54,7 @@ And finally in the *Player* class, you can modify:
 Like the original game, the objective of this version is to shoot all the segments of the centipede. Here, you play as the navy square and aim for the green circles, which move together until divided. The obstacles, which have the aforementioned colors, will block movement and shots (which progressively shrink them), while redirecting the centipede segments. The game is intended to be played directly from the enclosure, you can also use a keyboard for input if desired, with both control schemes outlined below.
 - Click the yelow button on the enclosure or the touchpad/mouse on the computer while on the main menu to start gameplay.
 - Flip the Centipede "nose" switch or press the *p* key to pause/unpause (up is paused, down is unpaused).
-- Use the joystick or the arrow keys to move the blue square around so that you can shoot the centipede and avoid hitting its segments.
+- Use the joystick or the arrow keys to move the blue square around so that you can shoot the centipede and avoid hitting its segments. Note that you can only move in the bottom portion of the screen, where the centipede also stays once it enters.
 - Press the yellow button or the spacebar to shoot lasers at the centipede (can be held for auto-reload).
 - Click the joystick button or the touchpad/mouse to take a capture of your current game state as archival art (copy them from the screenshots folder or change the save location in the code if desired to avoid rewriting).
 - Continue playing until you lose all 3 lives.
@@ -153,4 +153,4 @@ In the future, I would like to further refine the enclosure design to be more st
 - Provide some easier way to access the electronics inside the box (maybe via a removable lid).
 - Separate the parts into several small modules in case the Pi was not desired, which could further the "centipede" appearance.
 
-In terms of the code, I would probably turn to the unrealized ideas above, which shouldn't take too long, as well as refining player and centipede movement. With the side effect of transforming the project, it could also be modified to play different games. I could maybe even link multiple enclosures together via wires or bluetooth to play games with multiple players (competitive Centipede here we come)!
+In terms of the code, I would probably turn to the unrealized ideas above, which shouldn't take too long, as well as refining player and centipede movement (mostly by refactoring the Centipede and Segment classes so that the centipede splits more properly). With the side effect of transforming the project, it could also be modified to play different games. I could maybe even link multiple enclosures together via wires or bluetooth to play games with multiple players (competitive Centipede here we come)!
