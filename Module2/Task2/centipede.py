@@ -5,7 +5,7 @@ import serial
 import threading
 import random
 from sys import argv
-from os import path
+from os import path, makedirs
 
 
 # Global constants
@@ -173,7 +173,7 @@ class Player:
         # Create basic new x and y values from the velocity
         newx = self.x + direction[0] * self.vel
         newy = self.y + direction[1] * self.vel
-        #
+        # Set basic limits without regard for obstacles
         limits = [0, WIDTH - self.size + 1, int(HEIGHT * BOTTOM_FRAC), HEIGHT - self.size + 1]
         # Modify the limits if any objects are hit so the player cannot move through them
         for obstacle in obstacles:
@@ -299,27 +299,38 @@ class Segment:
         pydraw.circle(window, GREEN, (self.x, self.y), self.size, self.size)
 
     def move(self, limits, obstacles):
-        # 
+        # Create the default new x position
         newx = self.x - self.vel
+        # If the segment is still emerging from the border, move until it
+        #   is in bounds
         if self.state == START:
             self.x = newx
             if self.x in range(limits[0], limits[1]):
                 self.state = NORMAL
+        # If the segment is within the limits, move normally
         else:
+            # Check for collisions with obstacles
             collision = False
             for obstacle in obstacles:
                 if collide(self.rect, obstacle.rect):
                     collision = True
                     break
+            # If the new x position is within the limits and there was no
+            #   collision, just move normally
             if newx in range(limits[0], limits[1]) and not collision:
                 self.x = newx
+            # If you have reached a boundary, move the y coordinate and reverse
+            #   the x direction
             else:
                 newy = self.y + 2 * self.size * self.ydir
+                # Flip the y-direction if it is on the boundary
                 if newy not in range(int(HEIGHT * BOTTOM_FRAC) if self.state == END else 0, HEIGHT - self.size + 1):
                     self.ydir *= -1
                     newy = self.y + 2 * self.size * self.ydir
                 self.y = newy
+                # Reverse the x direction
                 self.vel *= -1
+                # Signal to stay in the bottom player area if you've reached it
                 if self.y > int(HEIGHT * BOTTOM_FRAC):
                     self.state = END
 
@@ -328,34 +339,42 @@ def game():
     ''' Run the main program loop to play the game, updating every 1/FPS of
             a second.
     '''
-    # Top-level variables
+    # Variable to determine whether to quit to the main menu
     run = True
-    lost = False
 
-    lives = 3
-
+    # Font variables
     main_font = pyfont.SysFont("comicsans", 30)
+    label_height = 0
 
+    # Clock used to time the screen refreshes
     clock = pytime.Clock()
 
+    # Keep count of the number of screenshots
     screenshot_count = 0
 
+    # Player variables
+    lives = 3
     psize = 16
     pvel = 5
     player = Player(WIDTH / 2 - psize / 2, HEIGHT - psize - 10, psize, pvel)
 
+    # Centipede variables
     centipedes = []
     cvel = 3
     csize = 9
+    # Prevents the drawing of the "green screen" at the start of the game
     initial = True
 
+    # Laser variables
     lvel = 8
 
+    # Obstacle variables
     obstacles = []
     orects = []
     ocount = random.randint(20, 30)
 
-    # For the random number of obstacles
+    # Create ocount new obstacles at random possitions at least 6 times the
+    #   radius away from each other
     for i in range(ocount):
         valid = False
         while not valid:
@@ -369,36 +388,45 @@ def game():
         obstacles.append(Obstacle(ox, oy, csize))
         orects.append(new_rect)
 
-    label_height = 0
-
-    # Localized function to redraw the base window and labels
     def redraw_window(color = WHITE):
+        ''' Localized function to redraw the base window and labels
+        '''
+        # Set the background color to color (WHITE by default)
         WIN.fill(color)
 
+        # Draw the labels for score and lives in the corners
         score_label = main_font.render(f"Score: {player.score}", 1, NAVY)
         lives_label = main_font.render(f"Lives: {lives}", 1, NAVY)
-
         WIN.blit(score_label, (10, 10))
         WIN.blit(lives_label, (WIDTH - lives_label.get_width() - 10, 10))
 
+        # Draw the player
         player.draw(WIN)
 
+        # Draw the centipedes (whole centipedes)
         for centipede in centipedes:
             centipede.draw(WIN)
 
+        # Draw the obstacles
         for obstacle in obstacles:
             obstacle.draw(WIN)
 
+        # Actually update the screen
         pydisplay.update()
 
+        # Return the height of the score label to adjust the 
         return score_label.get_height()
 
+    # Set the pause indicator to False by default
     pause = False
 
+    # Main update functionthat runs every 1 / FPS
     while run:
+        # Update the clock and redraw the window
         clock.tick(FPS)
         label_height = redraw_window()
 
+        # Check for quit, pause, and screenshot events
         for event in pyevent.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -409,20 +437,27 @@ def game():
                 pygame.image.save(WIN, path.join("screenshots", f"screenshot{screenshot_count}.jpg"))
                 screenshot_count += 1
         
+        # Check for switch pause events
         if not ((len(argv) > 1 and argv[1] == "--keyboard") or (len(argv) > 2 and argv[2] == "--keyboard")):
             pause = esp_vals[SWITCH] == 0
 
+        # Check for joystick screenshot events
         if esp_vals[JOY_BUTTON] == 0:
             pygame.image.save(WIN, path.join("screenshots", f"screenshot{screenshot_count}.jpg"))
             screenshot_count += 1
 
+        # Main action block when the game is not paused
         if not pause:
+            # If there are no centipedes, create a new one
             if len(centipedes) == 0:
+                # If it is not the initial level or a life lost, flash a
+                #   green background to symbolize beating a level
                 if not initial:
                     redraw_window(GREEN)
                     pause = True
                     for i in range(FPS * 2):
                         clock.tick(FPS)
+                        # Allow for screenshots during "new level"
                         for event in pyevent.get():
                             if event.type == pygame.MOUSEBUTTONDOWN:
                                 pygame.image.save(WIN, path.join("screenshots", f"screenshot{screenshot_count}.jpg"))
@@ -435,6 +470,7 @@ def game():
                 pause = False
                 centipedes = [Centipede(WIDTH, csize + label_height + 10, csize, cvel)]
 
+            # Handle key presses and inputs  of all sorts
             keys = pykey.get_pressed()
             # Move left
             if keys[pygame.K_LEFT] or esp_vals[JOY_X] < 2600:
@@ -452,14 +488,18 @@ def game():
             if keys[pygame.K_SPACE] or esp_vals[BUTTON] == 0:
                 player.shoot()
 
+            # Move the centipedes and check for collisions
             for centipede in centipedes:
-                if centipede.move(obstacles, player) == 'lose life':
+                # If the player hits a centipede, flash a black screen and
+                #   restart a "new level"
+                if centipede.move(obstacles, player) == "lose life":
                     lives -= 1
                     centipedes.remove(centipede)
                     redraw_window(BLACK)
                     pause = True
                     for i in range(FPS * 2):
                         clock.tick(FPS)
+                        # Allow for screenshots during "lose life"
                         for event in pyevent.get():
                             if event.type == pygame.MOUSEBUTTONDOWN:
                                 pygame.image.save(WIN, path.join("screenshots", f"screenshot{screenshot_count}.jpg"))
@@ -468,15 +508,20 @@ def game():
                             pygame.image.save(WIN, path.join("screenshots", f"screenshot{screenshot_count}.jpg"))
                             screenshot_count += 1
                     pause = False
+                    # Restart the centipede
                     initial = True
+                    # End the game if you are out of lives
                     if lives <= 0:
                         run = False
 
+            # Move the player lasers and add obstacles/remove segments wherever
+            #   they are hit
             for centipede in centipedes:
                 hits = player.move_lasers(-lvel, centipede.segments, obstacles)
                 if hits['segments']:
                     for hit in hits['segments']:
                         obstacles.append(Obstacle(hit.x, hit.y, csize))
+                # Delete the centipede if it has no segments
                 if not centipede.segments: 
                     centipedes.remove(centipede)
 
@@ -495,6 +540,9 @@ def main():
     if not ((len(argv) > 1 and argv[1] == "--keyboard") or (len(argv) > 2 and argv[2] == "--keyboard")):
         esp_thread = threading.Thread(target = read_esp, name = "esp")
         esp_thread.start()
+
+    # Make a directory for storing the screenshots
+    makedirs('screenshots', exist_ok=True)
 
     # Run the game until the user quits (from the menu)
     while run:
