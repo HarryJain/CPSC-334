@@ -6,6 +6,7 @@ from pygame import *
 import serial
 import threading
 from sys import argv
+from os import path
 
 #from gpiozero import Button
 
@@ -382,12 +383,12 @@ def game():
                 if event.key == pygame.K_p:
                     pause = not pause
             if event.type == pygame.MOUSEBUTTONDOWN:
-                pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+                pygame.image.save(WIN, path.join("screenshots", f"screenshot{screenshot_count}.jpg"))
                 screenshot_count += 1
         
         pause = esp_vals[SWITCH] == 0
         if esp_vals[JOY_BUTTON] == 0:
-            pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+            pygame.image.save(WIN, path.join("screenshots", f"screenshot{screenshot_count}.jpg"))
             screenshot_count += 1
 
         if not pause:
@@ -402,10 +403,10 @@ def game():
                         clock.tick(FPS)
                         for event in pyevent.get():
                             if event.type == pygame.MOUSEBUTTONDOWN:
-                                pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+                                pygame.image.save(WIN, path.join("screenshots", f"screenshot{screenshot_count}.jpg"))
                                 screenshot_count += 1
                         if esp_vals[JOY_BUTTON] == 0:
-                            pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+                            pygame.image.save(WIN, path.join("screenshots", f"screenshot{screenshot_count}.jpg"))
                             screenshot_count += 1
                 else:
                     initial = False
@@ -452,10 +453,10 @@ def game():
                         clock.tick(FPS)
                         for event in pyevent.get():
                             if event.type == pygame.MOUSEBUTTONDOWN:
-                                pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+                                pygame.image.save(WIN, path.join("screenshots", f"screenshot{screenshot_count}.jpg"))
                                 screenshot_count += 1
                         if esp_vals[JOY_BUTTON] == 0:
-                            pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+                            pygame.image.save(WIN, path.join("screenshots", f"screenshot{screenshot_count}.jpg"))
                             screenshot_count += 1
                     pause = False
                     initial = True

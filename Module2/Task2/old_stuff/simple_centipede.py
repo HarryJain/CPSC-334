@@ -4,6 +4,7 @@ import random
 import pygame
 from pygame import display as pydisplay, time as pytime, event as pyevent, font as pyfont, draw as pydraw, key as pykey
 from pygame import *
+from os import path
 
 # Global constants
 
