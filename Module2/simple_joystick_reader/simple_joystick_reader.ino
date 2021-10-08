@@ -3,10 +3,10 @@
 
 
 // Pin constants for x, y, and button
-#define JOYSTICK_PIN_X 36
-#define JOYSTICK_PIN_Y 39
-#define JOYSTICK_PIN_BUTTON 34
-#define PIN_BUTTON 35
+#define JOYSTICK_PIN_X 25
+#define JOYSTICK_PIN_Y 26
+#define JOYSTICK_PIN_BUTTON 27
+#define PIN_BUTTON 33
 #define PIN_SWITCH 32
 
 

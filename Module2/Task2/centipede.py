@@ -3,10 +3,10 @@ import random
 import pygame
 from pygame import display as pydisplay, time as pytime, event as pyevent, font as pyfont, draw as pydraw, key as pykey
 from pygame import *
-from pygame import joystick
 import serial
-from time import sleep
 import threading
+from sys import argv
+
 #from gpiozero import Button
 
 
@@ -49,7 +49,7 @@ END = 2
 
 
 # esp_vals constants
-REP_COUNT = 3
+REP_COUNT = 4
 JOY_X = 0
 JOY_Y = 1
 JOY_BUTTON = 2
@@ -69,8 +69,10 @@ esp_vals = [2800, 2800, 1000, 1000, 0]
 def read_esp():
   global esp_vals
   
-  ser = serial.Serial('/dev/ttyUSB0', 115200, timeout = 1)
-  #ser = serial.Serial('/dev/tty.SLAB_USBtoUART', 115200, timeout = 1)
+  if len(argv) > 1 and argv[1] == '--pi':
+    ser = serial.Serial('/dev/ttyUSB0', 115200, timeout = 1)
+  else:
+    ser = serial.Serial('/dev/tty.SLAB_USBtoUART', 115200, timeout = 1)
   ser.flush()
 
   reps = []
@@ -84,7 +86,6 @@ def read_esp():
       if len(reps) == REP_COUNT:
         esp_vals = [ int(sum([ reps[j][i] for j in range(REP_COUNT) ]) / REP_COUNT) for i in range(5) ]
         reps = []
-        #print(esp_vals)
 
 
 def collide(obj1, obj2):
@@ -142,6 +143,7 @@ class Player:
         self.laserz = []
         self.cooldown_counter = 0
         self.rect = pygame.Rect(self.x, self.y, self.size, self.size)
+        self.score = 0
 
     def draw(self, window):
         self.rect = pygame.Rect(self.x, self.y, self.size, self.size)
@@ -190,11 +192,13 @@ class Player:
                     if laser.collision(segment):
                         hit['segments'].append(segment)
                         segments.remove(segment)
+                        self.score += 10
                         if laser in self.laserz:
                             self.laserz.remove(laser)
                 for obstacle in obstacles:
                     if laser.collision(obstacle):
                         hit['obstacles'].append(obstacle)
+                        self.score += 1
                         obstacle.radius -= 3
                         obstacle.color = ocolors[random.randint(0, len(ocolors) - 1)]
                         if obstacle.radius <= 0:
@@ -290,19 +294,20 @@ def game():
     # Mac
     # ser = serial.Serial('/dev/tty.SLAB_USBtoUART', 115200, timeout = 1)
     # ser.flush()
-    esp_thread = threading.Thread(target = read_esp, name = "esp")
-    esp_thread.start()
+    # esp_thread = threading.Thread(target = read_esp, name = "esp")
+    # esp_thread.start()
 
     # Top-level variables
     run = True
     lost = False
 
-    score = 0
     lives = 3
 
     main_font = pyfont.SysFont("comicsans", 30)
 
     clock = pytime.Clock()
+
+    screenshot_count = 0
 
     psize = 16
     pvel = 5
@@ -312,6 +317,7 @@ def game():
     clength = random.randint(10, 13)
     cvel = 3
     csize = 9
+    initial = True
 
     lvel = 8
 
@@ -337,7 +343,7 @@ def game():
     def redraw_window(color = WHITE):
         WIN.fill(color)
 
-        score_label = main_font.render(f"Score: {score}", 1, NAVY)
+        score_label = main_font.render(f"Score: {player.score}", 1, NAVY)
         lives_label = main_font.render(f"Lives: {lives}", 1, NAVY)
 
         WIN.blit(score_label, (10, 10))
@@ -366,6 +372,7 @@ def game():
                 #print(esp_vals)'''
 
         clock.tick(FPS)
+        label_height = redraw_window()
 
         for event in pyevent.get():
             if event.type == pygame.QUIT:
@@ -374,13 +381,30 @@ def game():
                 if event.key == pygame.K_p:
                     pause = not pause
             if event.type == pygame.MOUSEBUTTONDOWN:
-                pygame.image.save(WIN, "screenshot.jpg")
+                pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+        
+        pause = esp_vals[SWITCH] == 0
+        if esp_vals[JOY_BUTTON] == 0:
+            pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
 
         if not pause:
             # clock.tick(FPS)
-            label_height = redraw_window()
+            #label_height = redraw_window()
 
             if len(centipedes) == 0:# or len(centipedes[0].segments) == 0:
+                if not initial:
+                    redraw_window(GREEN)
+                    pause = True
+                    for i in range(FPS * 2):
+                        clock.tick(FPS)
+                        for event in pyevent.get():
+                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+                        if esp_vals[JOY_BUTTON] == 0:
+                            pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+                else:
+                    initial = False
+                pause = False
                 centipedes = [Centipede(WIDTH, csize + label_height + 10, csize, cvel)]
                 # clength = random.randint(10, 13)
                 # for i in range(clength):
@@ -404,7 +428,7 @@ def game():
             if keys[pygame.K_RIGHT] or esp_vals[JOY_X] > 3000:
                 player.move((1, 0), obstacles)
             # Move up
-            if keys[pygame.K_UP] or esp_vals[JOY_X] < 2600:
+            if keys[pygame.K_UP] or esp_vals[JOY_Y] < 2600:
                 player.move((0, -1), obstacles)
             # Move down
             if keys[pygame.K_DOWN] or esp_vals[JOY_Y] > 3000:
@@ -423,8 +447,11 @@ def game():
                         clock.tick(FPS)
                         for event in pyevent.get():
                             if event.type == pygame.MOUSEBUTTONDOWN:
-                                pygame.image.save(WIN, "screenshot.jpg")
+                                pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+                        if esp_vals[JOY_BUTTON] == 0:
+                            pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
                     pause = False
+                    initial = True
                     if lives <= 0:
                         run = False
 
@@ -450,9 +477,13 @@ def game():
 def main():
     title_font = pyfont.SysFont("comicsans", 40)
     run = True
+
+    esp_thread = threading.Thread(target = read_esp, name = "esp")
+    esp_thread.start()
+
     while run:
         WIN.fill(WHITE)
-        title_label = title_font.render("Click the touchpad to begin...", 1, NAVY)
+        title_label = title_font.render("Press the button to begin...", 1, NAVY)
         WIN.blit(title_label, (WIDTH / 2 - title_label.get_width() / 2, HEIGHT / 2 - title_label.get_height() / 2))
         pydisplay.update()
         for event in pyevent.get():
@@ -460,6 +491,8 @@ def main():
                 run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 game()
+        if esp_vals[BUTTON] == 0:
+            game()
     pygame.quit()
 
 
