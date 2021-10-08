@@ -86,6 +86,7 @@ def read_esp():
       if len(reps) == REP_COUNT:
         esp_vals = [ int(sum([ reps[j][i] for j in range(REP_COUNT) ]) / REP_COUNT) for i in range(5) ]
         reps = []
+        #print(esp_vals)
 
 
 def collide(obj1, obj2):
@@ -382,10 +383,12 @@ def game():
                     pause = not pause
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+		screenshot_count += 1
         
         pause = esp_vals[SWITCH] == 0
         if esp_vals[JOY_BUTTON] == 0:
             pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+	    screenshot_count += 1
 
         if not pause:
             # clock.tick(FPS)
@@ -400,8 +403,10 @@ def game():
                         for event in pyevent.get():
                             if event.type == pygame.MOUSEBUTTONDOWN:
                                 pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+				screenshot_count += 1
                         if esp_vals[JOY_BUTTON] == 0:
                             pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+			    screenshot_count += 1
                 else:
                     initial = False
                 pause = False
@@ -448,8 +453,10 @@ def game():
                         for event in pyevent.get():
                             if event.type == pygame.MOUSEBUTTONDOWN:
                                 pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+				screenshot_count += 1
                         if esp_vals[JOY_BUTTON] == 0:
                             pygame.image.save(WIN, f"screenshot{screenshot_count}.jpg")
+			    screenshot_count += 1
                     pause = False
                     initial = True
                     if lives <= 0:
@@ -491,7 +498,7 @@ def main():
                 run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 game()
-        if esp_vals[BUTTON] == 0:
+        if esp_vals[BUTTON] == 0 or esp_vals[JOY_BUTTON] == 0:
             game()
     pygame.quit()
 
