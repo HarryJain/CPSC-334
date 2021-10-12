@@ -149,7 +149,7 @@ None of these ideas are much more challenging technically, so they could definit
 In the future, I would like to further refine the enclosure design to be more sturdy and attractive. My initial thoughts would be to:
 - Make the box out of lasercut wood rather than foam core.
 - Paint the box instead of wrapping it with paper.
-- Use a more satisfying and precise joystick and button
+- Use a more satisfying and precise joystick and button.
 - Provide some easier way to access the electronics inside the box (maybe via a removable lid).
 - Separate the parts into several small modules in case the Pi was not desired, which could further the "centipede" appearance.
 
