@@ -94,7 +94,7 @@ As required, this project uses a physical control circuit connected to a ESP32 f
 - A SPST switch for pausing
 - An analog joystick for player movement
 
-![Circuit](assets/circuit.JPG)
+![Circuit](assets/circuit.jpg)
 
 All of these components were wired to GPIO pins of the ESP32 as well as the required power/ground values in order to function as desired. Namely, the circuit used the following connections (which are fairly evident from the code):
 - Button: one pin to GND from the ESP32 and the other to GPIO 33
