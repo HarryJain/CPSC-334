@@ -55,7 +55,7 @@ SWITCH = 4
 
 # Initialize the font and set the title of the window
 pyfont.init()
-pydisplay.set_caption("Centipede")
+pydisplay.set_caption("CentESPede 32")
 
 # List for storing input values from esp32 with non-action default values
 esp_vals = [2800, 2800, 1000, 1000, 1]
@@ -542,7 +542,7 @@ def main():
         esp_thread.start()
 
     # Make a directory for storing the screenshots
-    makedirs('screenshots', exist_ok=True)
+    #makedirs('screenshots', exist_ok=True)
 
     # Run the game until the user quits (from the menu)
     while run:

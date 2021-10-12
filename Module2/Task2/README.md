@@ -15,7 +15,7 @@ With the additional constraints that it:
 - May use as many LEDs as desired.
 
 
-## Centipede X Ellsworth Kelly: An Artistic Reinterpretation of a Classic Arcade Game
+## CentESPede 32: An Artistic Reinterpretation of a Classic Arcade Game
 Building off the basic motions established in Task #1 for Marco Polo, I wanted to create a more interactive game for Task #2. To do so, I turned to classic arcade games, which seemed approachable to make and would allow for the creation of attractive visual artifacts. In the end, I decided on the Atari and arcade classic Centipede due to the abundant opportunities for colorful and persistent items.
 
 For artistic inspiration, I wanted to replicate the simple, primary colors of modern artists like Jackson Pollack and Ellsworth Kelly. In specific, I utilized the colors from Kelly's *Colors for a Large Wall* (1951) as the basis for the obstacles and sprites in my game. Additionally, rather than using more intricately-designed sprites that replicate the original game, I stuck to simple/fundamental shapes of those colors. Thus, when the gamestate is saved via the built-in screenshot tool, it produces its own work of "art" in this style.
@@ -63,15 +63,15 @@ For competitive play, consider playing for the highest number of centipedes defe
 
 ![Gameplay](assets/gameplay.gif)
 
-[Full length, high quality gameplay demonstration](assets/gameplay_screen_recording.mov)
+[Full length, high quality gameplay demonstration](assets/gameplay_recording.gif)
 
 
 ## Implementation Details
 
 ### Enclosure
-As a play on the concept and title of the game, I decided to make my enclosure resemble a cartoon centipede, using the image below in specific for inspiration and colored paper to match the game sprite. While the joystick and button are more utilitarian, other parts of the enclosure, like the "tail" for opening the drawer and the "nose" switch for pausing seamlessly fit the centipede design. I additionally decorated with some spots and "legs" to further enhance the look.
+As a play on the concept and title of the game, I decided to make my enclosure resemble a cartoon centipede, using the image below in specific for inspiration and colored paper to match the game sprite. While the joystick and button are more utilitarian, other parts of the enclosure, like the "tail" for opening the drawer and the "nose" switch for pausing seamlessly fit the centipede design. I additionally decorated with some stickers and "legs" to further enhance the look.
 
-![Centipede](assets/centipede.jpg)
+![Centipede](assets/centespede.jpg)
 
 For ease of construction, I utilized a foam board, cutting six sides to form a rectangular prism that could enclose the ESP32 and Pi together. However, to enable access to the internal circuitry, I made the lefthand side a "drawer" that could slide out, as shown in the picture below.
 
