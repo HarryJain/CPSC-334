@@ -20,7 +20,7 @@ Building off the basic motions established in Task #1 for Marco Polo, I wanted t
 
 For artistic inspiration, I wanted to replicate the simple, primary colors of modern artists like Jackson Pollack and Ellsworth Kelly. In specific, I utilized the colors from Kelly's *Colors for a Large Wall* (1951) as the basis for the obstacles and sprites in my game. Additionally, rather than using more intricately-designed sprites that replicate the original game, I stuck to simple/fundamental shapes of those colors. Thus, when the gamestate is saved via the built-in screenshot tool, it produces its own work of "art" in this style.
 
-![Ellsworth Kelly](assets/kelly_color_large wall.png)
+![Ellsworth Kelly](assets/kelly_color_large_wall.jpg)
 
 
 ## Usage Instructions
@@ -61,10 +61,7 @@ Like the original game, the objective of this version is to shoot all the segmen
 
 For competitive play, consider playing for the highest number of centipedes defeated or, more simply, the highest score. This may require some modifications of the constants described above to fine-tune the difficulty level for your skills.
 
-![Gameplay](assets/gameplay.gif)
-
-[Full length, high quality gameplay demonstration](assets/gameplay_recording.gif)
-
+![Gameplay](assets/gameplay_recording.gif)
 
 ## Implementation Details
 
@@ -80,15 +77,15 @@ For ease of construction, I utilized a foam board, cutting six sides to form a r
 
 There are two different ways of connecting the circuit to play the game: via the built-in Raspberry Pi or via your local computer. There is a short micro USB to USB A cable to connect the ESP32 to the Pi, as well as a cutout on the back for connect a USB C power source and a micro HDMI display output. For computers, there is a cutout to plug in a longer micro USB to USB A cable for attaching the ESP32 to a computer instead.
 
-![Back](assets/back.jpg)
+![Back](assets/back.JPG)
 
 Inside, the Pi is mounted on the right and the breadboard on the left using velcro command strips (to allow for easy removal). All the circuitry is contained inside the enclosure, with most of the wires going between input and the broadboard.
 
-![Inside](assets/inside.jpg)
+![Inside](assets/inside.JPG)
 
 All the input devices are mounted onto the box, with the switch being cut into the face, the joystick being screwed into the top, and the button being just stuck into the top (one of the more flimsy parts of the design).
 
-![Top](assets/top.jpg)
+![Top](assets/top.JPG)
 
 
 ### Circuit Design
