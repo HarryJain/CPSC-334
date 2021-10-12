@@ -52,7 +52,7 @@ And finally in the *Player* class, you can modify:
 
 ### Gameplay
 Like the original game, the objective of this version is to shoot all the segments of the centipede. Here, you play as the navy square and aim for the green circles, which move together until divided. The obstacles, which have the aforementioned colors, will block movement and shots (which progressively shrink them), while redirecting the centipede segments. The game is intended to be played directly from the enclosure, you can also use a keyboard for input if desired, with both control schemes outlined below.
-- Click the yelow button on the enclosure or the touchpad/mouse on the computer while on the main menu to start gameplay.
+- Click the yellow button on the enclosure or the touchpad/mouse on the computer while on the main menu to start gameplay.
 - Flip the Centipede "nose" switch or press the *p* key to pause/unpause (up is paused, down is unpaused).
 - Use the joystick or the arrow keys to move the blue square around so that you can shoot the centipede and avoid hitting its segments. Note that you can only move in the bottom portion of the screen, where the centipede also stays once it enters.
 - Press the yellow button or the spacebar to shoot lasers at the centipede (can be held for auto-reload).
@@ -69,9 +69,12 @@ For competitive play, consider playing for the highest number of centipedes defe
 ## Implementation Details
 
 ### Enclosure
+
+![Centipede](assets/centespede.JPG)
+
 As a play on the concept and title of the game, I decided to make my enclosure resemble a cartoon centipede, using the image below in specific for inspiration and colored paper to match the game sprite. While the joystick and button are more utilitarian, other parts of the enclosure, like the "tail" for opening the drawer and the "nose" switch for pausing seamlessly fit the centipede design. I additionally decorated with some stickers and "legs" to further enhance the look.
 
-![Centipede](assets/centespede.jpg)
+![Centipede](assets/centipede.jpg)
 
 For ease of construction, I utilized a foam board, cutting six sides to form a rectangular prism that could enclose the ESP32 and Pi together. However, to enable access to the internal circuitry, I made the lefthand side a "drawer" that could slide out, as shown in the picture below.
 
@@ -98,7 +101,7 @@ As required, this project uses a physical control circuit connected to a ESP32 f
 
 All of these components were wired to GPIO pins of the ESP32 as well as the required power/ground values in order to function as desired. Namely, the circuit used the following connections (which are fairly evident from the code):
 - Button: one pin to GND from the ESP32 and the other to GPIO 33
-- Switch: one pin to GND from the Pi and the other to GPIO 32
+- Switch: one pin to GND from the ESP32 and the other to GPIO 32
 - Joystick: VRX to GPIO 25, VRY to GPIO 26, +5V to 5V from the ESP32, GND to GND from the ESP32, and SW to GPIO 27
 
 
@@ -154,3 +157,21 @@ In the future, I would like to further refine the enclosure design to be more st
 - Separate the parts into several small modules in case the Pi was not desired, which could further the "centipede" appearance.
 
 In terms of the code, I would probably turn to the unrealized ideas above, which shouldn't take too long, as well as refining player and centipede movement (mostly by refactoring the Centipede and Segment classes so that the centipede splits more properly). With the side effect of transforming the project, it could also be modified to play different games. I could maybe even link multiple enclosures together via wires or bluetooth to play games with multiple players (competitive Centipede here we come)!
+
+## References
+As this was my first time using pygame, I turned to some YouTube tutorials, namely this implementation of ["space invaders"](https://youtu.be/Q-__8Xw9KTM) and a [two-player space battle game](https://youtu.be/jO6qQDNa2UY) from [Tech With Tim](https://www.youtube.com/channel/UC4JX40jDee_tINbkjycV4Sg), which I used for the basic structure of my program. Additionally, I used the [official pygame documentation](https://www.pygame.org/docs/) and the following sites:
+- [This stack overflow](https://stackoverflow.com/questions/7168508/background-function-in-python) for learning about multithreading.
+- [This stack overflow](https://stackoverflow.com/questions/17267395/how-to-take-screenshot-of-certain-part-of-screen-in-pygame) for how to take screenshots of your pygame program.
+
+In terms of the circuitry and electronics code, I referenced the following pages, as well as the official class documents:
+- [This tutorial](https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/) for working with the ESP32 in Arduino IDE.
+- [This documentation](https://microcontrollerslab.com/esp32-pinout-use-gpio-pins/) for the ESP32 GPIO ports.
+- [This article](https://www.elithecomputerguy.com/2020/12/arduino-read-serial-communication-with-raspberry-pi/) on reading serial communication on Raspberry Pi (and Python in general).
+
+Finally, as mentioned before, I took inspiration from:
+- The [Wikipedia page](https://en.wikipedia.org/wiki/Centipede_(video_game)) for Centipede to learn about specific game properties.
+- [This implementation](https://games.aarp.org/games/atari-centipede) of the game for at-home gameplay comparisons.
+- [This game recording](https://youtu.be/V7XEmf02zEM) for quick visual comparisons.
+- [This listing](https://www.walmart.com/ip/Centipede-Arcade-Machine-Arcade1UP-4ft/617089098) for the original cabinet design (also included in the blogpost).
+- Ellsworth Kelly's [Colors for a Large Wall (1951)](https://www.anothermag.com/art-photography/10975/five-things-you-might-not-know-about-ellsworth-kelly) for colors and design (and the image above).
+- The centipede on [shutterstock](https://www.shutterstock.com/search/centipede+cartoon) for my enclosure design.

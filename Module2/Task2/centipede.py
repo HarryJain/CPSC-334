@@ -542,7 +542,7 @@ def main():
         esp_thread.start()
 
     # Make a directory for storing the screenshots
-    #makedirs('screenshots', exist_ok=True)
+    makedirs('screenshots', exist_ok=True)
 
     # Run the game until the user quits (from the menu)
     while run:
