@@ -20,7 +20,7 @@ Building off the basic motions established in Task #1 for Marco Polo, I wanted t
 
 For artistic inspiration, I wanted to replicate the simple, primary colors of modern artists like Jackson Pollack and Ellsworth Kelly. In specific, I utilized the colors from Kelly's *Colors for a Large Wall* (1951) as the basis for the obstacles and sprites in my game. Additionally, rather than using more intricately-designed sprites that replicate the original game, I stuck to simple/fundamental shapes of those colors. Thus, when the gamestate is saved via the built-in screenshot tool, it produces its own work of "art" in this style.
 
-![Ellsworth Kelly](assets/kelly_color_large_wall.jpg)
+![Ellsworth Kelly](assets/kelly_colors_large_wall.jpg)
 
 
 ## Usage Instructions
