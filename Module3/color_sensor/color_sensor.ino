@@ -1,8 +1,8 @@
 #define S0 34
 #define S1 35
 #define S2 32
-#define S3 33
-#define sensorOut 25
+#define S3 11
+#define sensorOut 33
 
 int frequency = 0;
 int frequency_r = 0;
@@ -17,7 +17,7 @@ void setup() {
   pinMode(sensorOut, INPUT);
   // Setting frequency-scaling to 20%
   digitalWrite(S0,HIGH);
-  digitalWrite(S1,LOW);
+  digitalWrite(S1,HIGH);
   Serial.begin(115200);
 }
 
@@ -57,5 +57,5 @@ void loop()
   Serial.print("B= ");//printing name
   Serial.print(frequency);//printing RED color frequency
   Serial.println("  ");
-  //delay(200);
+  delay(200);
 }

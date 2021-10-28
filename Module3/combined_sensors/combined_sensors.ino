@@ -1,15 +1,15 @@
 #include "Arduino.h"
 #include <WiFi.h>
 
-#define COLOR_S0 34
-#define COLOR_S1 35
-#define COLOR_S2 32
-#define COLOR_S3 33
-#define COLOR_OUT 25
-#define DIY_IN 26
-#define PIEZO_IN 27
-#define SOUND_IN 14
-#define PHOTO_IN 13
+#define DIY_IN 36
+#define PIEZO_IN 39
+#define SOUND_IN 34
+#define PHOTO_IN 35
+#define COLOR_OUT 32
+#define COLOR_S0 33
+#define COLOR_S1 11
+#define COLOR_S2 9
+#define COLOR_S3 10
 
 int frequency = 0;
 int frequency_r = 0;
@@ -121,5 +121,5 @@ void loop() {
   Serial.print(photo_val);
   Serial.print("\n");
 
-  delay(10);
+  delay(100);
 }

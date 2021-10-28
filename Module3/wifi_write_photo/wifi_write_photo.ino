@@ -2,7 +2,7 @@
 #include <analogWrite.h>
 #include <WiFi.h>
 
-#define PHOTO_PIN 36
+#define PHOTO_PIN 35
 #define RED_PIN 33
 #define BLUE_PIN 25
 #define GREEN_PIN 26
@@ -11,7 +11,7 @@ const char* ssid     = "yale wireless";
 const char* password = "";
 
 const uint16_t port = 8090;
-const char* host = "172.27.118.116";
+const char* host = "172.29.26.94";
 
 WiFiClient client;
 
@@ -41,17 +41,18 @@ void setup() {
   Serial.println("Connected to server successful!");
 
   pinMode(PHOTO_PIN, INPUT);
-  pinMode(RED_PIN, OUTPUT);
+  /*pinMode(RED_PIN, OUTPUT);
   pinMode(BLUE_PIN, OUTPUT);
-  pinMode(GREEN_PIN, OUTPUT);
+  pinMode(GREEN_PIN, OUTPUT);*/
 }
 
 void loop() {
   int analogValue = analogRead(PHOTO_PIN);
  
   client.print(analogValue);
+  Serial.print(analogValue);
 
-  if (analogValue > 2000) {
+  /*if (analogValue > 2000) {
     //Serial.print(analogValue);
     
     analogWrite(RED_PIN, 255);
@@ -60,7 +61,7 @@ void loop() {
 
     /*digitalWrite(RED_PIN, HIGH);
     digitalWrite(GREEN_PIN, HIGH);
-    digitalWrite(BLUE_PIN, HIGH);*/
+    digitalWrite(BLUE_PIN, HIGH);
   } else {
     analogWrite(RED_PIN, 255);
     analogWrite(GREEN_PIN, 165);
@@ -68,8 +69,8 @@ void loop() {
     
     /*digitalWrite(RED_PIN, LOW);
     digitalWrite(GREEN_PIN, LOW);
-    digitalWrite(BLUE_PIN, LOW);*/
-  }
+    digitalWrite(BLUE_PIN, LOW);
+  }*/
 
   //Serial.println("Disconnecting...");
   //client.stop();

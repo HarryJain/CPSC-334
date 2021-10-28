@@ -2,7 +2,7 @@ import socket
 
 s = socket.socket()
 
-s.bind(("172.27.120.240", 8090))
+s.bind(("172.29.26.94", 8090))
 
 s.listen(0)
 
