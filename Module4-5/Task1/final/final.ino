@@ -11,7 +11,7 @@
 #define DRIVER_IN4 17
 
 // Speed constant for rpm
-#define SPEED 10
+#define SPEED 15
 
 // Stepper object for 28BYJ-48 stepper motor
 Stepper stepper(STEPSPERREVOLUTION, DRIVER_IN1, DRIVER_IN3, DRIVER_IN2, DRIVER_IN4);
@@ -27,7 +27,7 @@ Stepper stepper(STEPSPERREVOLUTION, DRIVER_IN1, DRIVER_IN3, DRIVER_IN2, DRIVER_I
 Servo servo;
 
 // Set initial server position to 0
-int servo_pos = 0;
+int servo_pos = 100;
 
 
 // Set up the stepper and server motors
