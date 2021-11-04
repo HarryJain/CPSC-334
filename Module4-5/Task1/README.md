@@ -13,7 +13,7 @@ To do so, this task implements a circuit connecting the stepper and server motor
 ## Implementation Details
 
 ### Physical Design
-Along with the 28BYJ-48 step motor, its ULN2003 driver board, and the MG90S micro servo motor, the circuit used a cluster of two 18650 LiPo batteries to power the step motor and a 600mAh LiPo battery to power the ESP32 and server motor. The specific circuit details are outlined in the diagram below.
+Along with the 28BYJ-48 step motor, its ULN2003 driver board, and the MG90S micro servo motor, the circuit uses a cluster of two 18650 LiPo batteries to power the step motor and a 600mAh LiPo battery to power the ESP32 and server motor. The specific circuit details are outlined in the diagram below.
 
 ![diagram](assets/servo_and_stepper.png)
 
