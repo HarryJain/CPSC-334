@@ -1,7 +1,7 @@
 # Module 4/5, Task 1: Kinetic Sculpture
 
 ## Task Description
-This first task of this Kinetic Sculpture module is primarily a technical exercise to gain familiarity with the hardware for the assignment, namely the following actuators
+This first task of this Kinetic Sculpture module is primarily a technical exercise to gain familiarity with the hardware for the assignment, namely the following actuators:
 - 28BYJ-48 Step Motor
   - With ULN2003 Driver Board
 - MG90S Micro Servo Motor
