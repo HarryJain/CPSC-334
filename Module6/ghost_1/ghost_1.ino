@@ -9,7 +9,7 @@
 #define BUZZER_PIN 13
 
 // Control pin for the indicator LED
-#define LED_PIN 9
+#define LED_PIN 12
 
 // Set PWM properties
 #define FREQ 5000
