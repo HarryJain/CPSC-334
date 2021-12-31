@@ -13,26 +13,31 @@ A culmination of the course, this project asks for some compelling combination o
 
 In short, the task is to create something cool demonstrating mastery of the learnings from the semester.
 
-Furthermore, the project will be displayed in a 2-hour joint exhibition in Leeds Studio, so it must either be interactive (and reliable across 2 hours) or be filmed ahead of time for observation in situ.
+Furthermore, the project will be displayed in a 2-hour group exhibition in Leeds Studio, so it must either be interactive (and reliable across 2 hours) or be filmed ahead of time for observation in situ.
 
 
 
 ## *GBBO* and the *Gesture Glove*: An Interactive Motorized Ball
 When I started to think of a final project, I knew that I wanted to incorporate my favorite parts of the previous projects. Namely, I wanted to create some sort of kinetic wireless system taking user input via sensors. Beyond this vague combination of technologies, I did not have any firm idea or vision for what I wanted to make. Thus, I turned to my favorite sources of inspiration: sci-fi and toys. First, I considered various movement-based remote control systems, namely:
 - the telekinesis powers of the Force in *Star Wars*
+
 ![yoda.gif](assets/yoda.gif)
 
 - Microsoft Kinect's body-based gesture controls
+
 ![kinect.gif](assets/kinect.gif)
 
 - Imogen Heap's Mi.Mu music gloves
+
 ![mi.mu.png](assets/mi.mu.png)
 
 Then, I considered various objects that could be moved by these gestures, settling on rolling balls in particular, namely ones like:
 - BB-units like BB-8 from *Star Wars*
+
 ![bb8.gif](assets/bb8.gif)
 
 - Sphero toys
+
 ![sphero.gif](assets/sphero.gif)
 
 From this research and ideation, I created my design for *GBBO* and the *Gesture Glove*, a two-part system that allowed for physical body movements to control the motion of a distant motorized ball. Going beyond a simple handheld remote, the *Gesture Glove* rests on a user's body, creating a natural form of interaction in the spirit of the Force or Microsoft Kinect. Meanwhile, the spherical design of *GBBO* allows to the onmidirectional fun of Sphero toys, with the personality of BB-unit droids. Ultimately, this design combined the natural and the technical to create a unique sense of wonder through the simultaneous movement of your body and the ball.
