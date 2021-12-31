@@ -21,14 +21,17 @@ Furthermore, the project will be displayed in a 2-hour joint exhibition in Leeds
 When I started to think of a final project, I knew that I wanted to incorporate my favorite parts of the previous projects. Namely, I wanted to create some sort of kinetic wireless system taking user input via sensors. Beyond this vague combination of technologies, I did not have any firm idea or vision for what I wanted to make. Thus, I turned to my favorite sources of inspiration: sci-fi and toys. First, I considered various movement-based remote control systems, namely:
 - the telekinesis powers of the Force in *Star Wars*
 ![yoda.gif](assets/yoda.gif)
+
 - Microsoft Kinect's body-based gesture controls
 ![kinect.gif](assets/kinect.gif)
+
 - Imogen Heap's Mi.Mu music gloves
 ![mi.mu.png](assets/mi.mu.png)
 
 Then, I considered various objects that could be moved by these gestures, settling on rolling balls in particular, namely ones like:
 - BB-units like BB-8 from *Star Wars*
 ![bb8.gif](assets/bb8.gif)
+
 - Sphero toys
 ![sphero.gif](assets/sphero.gif)
 
@@ -46,6 +49,8 @@ From this research and ideation, I created my design for *GBBO* and the *Gesture
 The core part of my project, a remote control rolling ball in the spirit of a Sphero toy or BB-unit in *Star Wars*, was also the most complex to design, as I needed many different components to fit “perfectly” to allow for smooth movement. After looking at similar projects, I decided that a two-wheeled approach would be sufficient, where each wheel would have its own motor; that way, I could direct them both forwards, both backwards, or use a single one to turn clockwise or counterclockwise, and create a full range of movement without too much complexity. Luckily I was able to find a pair of gearbox DC motors with wheels specifically designed for such robotics projects, simplifying the “suspension” design.
 
 From there, the most important thing was to select a correctly-sized plastic ball (transparent for the aforementioned “cyber” effect”). The key design problem was making sure it would fit the chosen wheels with a proper interference fit to allow them to “roll” the ball as they moved forward. This would effectively emulate the motion of a hamster ball, in which the movement of the wheels spins the ball while gravity keeps the drive system near to the ground. I ended up choosing a 200mm diameter ball for 65mm diameter wheels, which seemed like a good ratio for having enough room for the wheels to move yet enough size for them to drive the entire ball.
+
+![foam_fit_2.jpg](assets/foam_fit_2.jpg)
 
 In order to have this perfect fit, I needed some way to mount everything within it. To do so, I cut a small piece of foam core that could hold the motors/wheels, along with all the circuitry to control it. By changing the length and width of this mounting board, I could change the fit of the wheels, allowing for some trial and error to get the desired drive characteristics. I ended up cutting this board such that it was just slightly shorter than the diameter of the ball and was wide enough for the wheels to sit about 1/3 of the way up the sidewall of the ball. With this chosen size, the only other modification I had to make for smooth driving was to lower the center of gravity by mounting two 7.4V battery packs (only one of which was actually used for power) on the underside, which stopped the wheels from driving up the sidewall and flipping over (a common problem in early testing).
 
@@ -81,11 +86,11 @@ Ultimately, to make the *GBBO* ball as described above, I utilized the following
 
 ### Gesture Glove
 
-![completed_glove.JPG](assets/completed_glove.jpg)
+![completed_glove.JPG](assets/completed_glove.JPG)
 
 Compared to the ball, the remote portion of my project, a motion-based glove to remotely drive the ball using tilt gestures, was quite simple to design. For choosing the glove, I turned to something I already had available at home: an oven glove, as it had long wrist guards and evoked my desired Darth Vader aesthetic. Then, the main decision was how to mount the breadboard with the ESP32 and accelerometer, which was an important decision because it significantly affected the gesture controls. However, using the wrist guard of the oven glove seemed better both visually and functionally, with relatively intuitive tilt controls in my testing.
 
-Like the ball, most of the circuit design was just an amalgamation of circuits from previous projects, as I used the same ESP32 microcontroller/MPU-6050 accelerometer combination from [the Evertree](https://www.notion.so/The-Evertree-Harry-Jain-8ff39714a1e0467dbfafbb96bddc90a9), with the 600mAh LiPo battery/LD1117 regulator combination from [Bear With Me](https://www.notion.so/Bear-With-Me-Kalo-Cody-Harry-3c727a6461c2450c8183e75472594dda), and the small vibration motor/E3055T transistor combination from the [*Spectre Remotes*](https://www.notion.so/Spectre-Remotes-Harry-7458929268494caf93cdf48b562fe498). After deciding on these components, I merely had to decide on a user flow, which was tilting the glove in the to control the ball’s movement (as outlined below) and buzzing if you have tilted enough for it to move.
+Like the ball, most of the circuit design was just an amalgamation of circuits from previous projects, as I used the same ESP32 microcontroller/MPU-6050 accelerometer combination from [the Evertree](https://github.com/HarryJain/CPSC-334/tree/main/Module4-5/Task2), with the 600mAh LiPo battery/LD1117 regulator combination from [Bear With Me](https://github.com/edu-yale-cpsc-334/module-3), and the small vibration motor/E3055T transistor combination from the [*Spectre Remotes*](https://github.com/HarryJain/cpsc-334-module6/tree/main/mesh_networking). After deciding on these components, I merely had to decide on a user flow, which was tilting the glove in the to control the ball’s movement (as outlined below) and buzzing if you have tilted enough for it to move.
 
 | Ball Movement | Tilt Direction/Gesture |
 | --- | --- |
@@ -121,7 +126,7 @@ To sense and transmit the user's gestures, I created a circuit like the one in t
 
 ## ESP-NOW
 
-In order to get the seamless wireless communication I desired, ESP-NOW was again the obvious choice. Luckily, from my extensive experimentation on previous projects, I did not really need to learn any new techniques for transmitting my desired data. In fact, I was able to reuse a lot of that previous code, in specific the sender/receiver code from [the *Evertree*](https://www.notion.so/The-Evertree-Harry-Jain-8ff39714a1e0467dbfafbb96bddc90a9), inspired by [the tutorial on this paradigm from Random Nerd Tutorials](https://randomnerdtutorials.com/esp-now-esp32-arduino-ide/).
+In order to get the seamless wireless communication I desired, ESP-NOW was again the obvious choice. Luckily, from my extensive experimentation on previous projects, I did not really need to learn any new techniques for transmitting my desired data. In fact, I was able to reuse a lot of that previous code, in specific the sender/receiver code from [the *Evertree*](https://github.com/HarryJain/CPSC-334/tree/main/Module4-5/Task2), inspired by [the tutorial on this paradigm from Random Nerd Tutorials](https://randomnerdtutorials.com/esp-now-esp32-arduino-ide/).
 
 ![esp-now.png](assets/esp-now.png)
 
@@ -206,7 +211,7 @@ While this was definitely my most “finished” project, I also think it has lo
 
 Next, I would focus on adding some simple features to the existing ball, starting with some internal LEDs; the power lights already gave a cool effect though the transparent ball, so I could definitely increase visual appeal with either random or movement-based LED lights. Similarly, I could add some speakers that either play music of the user’s choice or the “sounds” of *GBBO* as he moves around. Further taking advantage of the “lifelike” nature of *GBBO*, I would like to create some sort of “come home” functionality that would cause him to roll towards the *Gesture Glove* (maybe by trying to decrease the RSSI value) like a dog returning to its owner.
 
-The last set of plans all involve different ways to interact with *GBBO*, adding various forms of “gamification” or “ratification” via a more carefully defined environment. My first idea—inspired by exhibition at my high school in which a pair dancers painted on a giant canvas by putting paint on their feet during a dance—was to put the ball on a large piece of paper with “pits” of paint, allowing each user to contribute to a work of art with their movement of *GBBO*. I also considered a more fleeting artistic object in the form of a large clear box of magnetic filings that would respond to *GBBO* driving over them. Yet another suggestion came from a few exhibition users, who suggested a maze to navigate *GBBO* through. However, the idea I was closest to implementing were a series of ESP-NOW “stations” that would be triggered by *GBBO* approaching, similar to our Module 6 *[Spectre Remotes](https://www.notion.so/Spectre-Remotes-Harry-7458929268494caf93cdf48b562fe498)*; these could take almost any form, with the simplest being LED or speaker feedback.
+The last set of plans all involve different ways to interact with *GBBO*, adding various forms of “gamification” or “ratification” via a more carefully defined environment. My first idea—inspired by exhibition at my high school in which a pair dancers painted on a giant canvas by putting paint on their feet during a dance—was to put the ball on a large piece of paper with “pits” of paint, allowing each user to contribute to a work of art with their movement of *GBBO*. I also considered a more fleeting artistic object in the form of a large clear box of magnetic filings that would respond to *GBBO* driving over them. Yet another suggestion came from a few exhibition users, who suggested a maze to navigate *GBBO* through. However, the idea I was closest to implementing were a series of ESP-NOW “stations” that would be triggered by *GBBO* approaching, similar to our Module 6 *[Spectre Remotes](https://github.com/HarryJain/cpsc-334-module6/tree/main/mesh_networking)*; these could take almost any form, with the simplest being LED or speaker feedback.
 
 Perhaps even more interestingly than making an interactive environment, I could create some sort of interactions between multiple *GBBO* balls, also using ESP-NOW. This would pair well with some internal LEDs or speakers, which could react depending on the proximity to other balls.
 
