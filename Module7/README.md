@@ -63,11 +63,7 @@ In order to have this perfect fit, I needed some way to mount everything within 
 
 The remaining planning was essentially just circuit design, which I mostly did on-the-fly based on my previous projects. However, since DC motors have current and voltage requirements beyond the capabilities of the ESP32 GPIO pins, I needed some sort of motor driver, and I turned to the very common L298N motor driver controller board, which incorporates two H-bridges to drive two motors via simple digital inputs from an ESP32. This board requires power for both the logic circuit and the motors, which came from a 7.4V 18650 battery pack and a 3.7V LiPo battery, respectively. The rest of the design was just connecting the input pins, which control the motors according to the following chart.
 
-| Ball Direction | Input 1
-(Motor 1) | Input 2
-(Motor 1) | Input 3
-(Motor 2) | Input 4
-(Motor 2) |
+| Ball Direction | Input 1 (Motor 1) | Input 2 (Motor 1) | Input 3 (Motor 2) | Input 4 (Motor 2) |
 | --- | --- | --- | --- | --- |
 | Stop | 0 | 0 | 0 | 0 |
 | Forwards | 0 | 1 | 0 | 1 |
