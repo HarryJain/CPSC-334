@@ -21,6 +21,7 @@ Furthermore, the project must be able to be displayed in a 2-hour group exhibiti
 ![simple_demo.gif](assets/simple_demo.gif)
 
 [Link to full-length demo video](https://youtu.be/5SbEfZnEtMI)
+
 When I started to think of a final project, I knew that I wanted to incorporate my favorite parts of the previous projects. Namely, I wanted to create some sort of kinetic wireless system taking user input via sensors. Beyond this vague combination of technologies, I did not have any firm idea or vision for what I wanted to make. Thus, I turned to my favorite sources of inspiration: sci-fi and toys. First, I considered various movement-based remote control systems, namely:
 - the telekinesis powers of the Force in *Star Wars*
 
