@@ -1,7 +1,7 @@
 # Module 7: The Last Horrah
 ![simple_demo.gif](assets/simple_demo.gif)
 
-[Link to full-length YouTube demo video](https://youtu.be/5SbEfZnEtMI)
+[Link to full-length demo video](https://youtu.be/5SbEfZnEtMI)
 
 
 
