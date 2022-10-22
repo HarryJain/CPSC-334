@@ -1,2 +1,2 @@
-*.MOV filter=lfs diff=lfs merge=lfs -text
+# *.MOV filter=lfs diff=lfs merge=lfs -text
 Module7/assets/stiles_test_open.gif filter=lfs diff=lfs merge=lfs -text
